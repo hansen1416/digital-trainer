@@ -42,6 +42,11 @@
 .App.dark label {
   color: #e5e5e5;
 }
+.App .main-content {
+  position: relative;
+  width: 80%;
+  margin: 70px auto;
+}
 .App .nav {
   position: absolute;
   top: 0;
