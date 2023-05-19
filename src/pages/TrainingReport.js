@@ -7,10 +7,7 @@ import Grid from "@mui/joy/Grid";
 import Card from "@mui/joy/Card";
 import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
-import CardCover from '@mui/joy/CardCover';
-import Chip from '@mui/joy/Chip';
-import IconButton from '@mui/joy/IconButton';
-import Link from '@mui/joy/Link';
+import Chip from "@mui/joy/Chip";
 import Box from "@mui/joy/Box";
 import List from "@mui/joy/List";
 import ListDivider from "@mui/joy/ListDivider";
@@ -60,11 +57,18 @@ export default function TrainingReport() {
 						</List>
 					</Box>
 
-					<Divider orientation="horizontal">
+					<Divider
+						orientation="horizontal"
+						sx={{
+							"--Divider-childPosition": "20%",
+							margin: "20px 0",
+						}}
+					>
 						<Chip variant="solid" color="info" size="md">
 							Exercises
 						</Chip>
 					</Divider>
+
 					<Grid container spacing={2} sx={{ flexGrow: 1 }}>
 						{report &&
 							report.exercises &&
@@ -73,11 +77,11 @@ export default function TrainingReport() {
 									<Grid xs={4}>
 										<Card
 											sx={{
-                                                width: 'auto',
-                                                bgcolor: 'initial',
-                                                boxShadow: 'none',
-                                                '--Card-padding': '0px',
-                                              }}
+												width: "auto",
+												bgcolor: "initial",
+												boxShadow: "none",
+												"--Card-padding": "0px",
+											}}
 										>
 											<Box sx={{ position: "relative" }}>
 												<AspectRatio ratio="4/3">
