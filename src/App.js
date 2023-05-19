@@ -16,19 +16,26 @@ function App() {
 			<Outlet />
 
 			<div className="nav">
-				<Button
-					// id="basic-demo-button"
-					// aria-controls={ "basic-menu" }
-					// aria-haspopup="true"
-					// aria-expanded={ "true" }
-					// variant="outlined"
-					// color="neutral"
-					onClick={() => {
-						settheme(theme === "dark" ? "light" : "dark");
-					}}
-				>
-					{theme === "dark" ? <LightSvg /> : <DarkSvg />}
-				</Button>
+				<div className="menu">
+					<Menu>
+						<MenuItem>Report</MenuItem>
+					</Menu>
+				</div>
+				<div className="controls">
+					<Button
+						// id="basic-demo-button"
+						// aria-controls={ "basic-menu" }
+						// aria-haspopup="true"
+						// aria-expanded={ "true" }
+						// variant="outlined"
+						// color="neutral"
+						onClick={() => {
+							settheme(theme === "dark" ? "light" : "dark");
+						}}
+					>
+						{theme === "dark" ? <LightSvg /> : <DarkSvg />}
+					</Button>
+				</div>
 			</div>
 		</div>
 	);
