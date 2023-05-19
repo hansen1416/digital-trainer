@@ -1,0 +1,53 @@
+@light-color: #000;
+@light-active-color: #47b2f5;
+@dark-color: #e5e5e5;
+@dark-active-color: #47b2f5;
+
+.App {
+
+    overflow: hidden;
+    min-height: 100vh;
+
+    p {
+        margin: 0;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li.clickable {
+        cursor: pointer;
+    }
+    
+    &.light {
+        h1,h2,h3,h4,h5,a,span,p,i,li,label {
+            color: @light-color;
+        }
+
+        
+    }
+
+    &.dark {
+        background-color: #0F2027;
+
+        h1,h2,h3,h4,h5,a,span,p,i,li,label {
+            color: @dark-color;
+        }
+
+       
+    }
+
+    .nav {
+
+        position: absolute;
+        top: 0;
+        width: 100%;
+
+    }
+
+   
+}
+

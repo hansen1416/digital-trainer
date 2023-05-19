@@ -1,0 +1,49 @@
+.App {
+  overflow: hidden;
+  min-height: 100vh;
+}
+.App p {
+  margin: 0;
+}
+.App ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.App li.clickable {
+  cursor: pointer;
+}
+.App.light h1,
+.App.light h2,
+.App.light h3,
+.App.light h4,
+.App.light h5,
+.App.light a,
+.App.light span,
+.App.light p,
+.App.light i,
+.App.light li,
+.App.light label {
+  color: #000;
+}
+.App.dark {
+  background-color: #0F2027;
+}
+.App.dark h1,
+.App.dark h2,
+.App.dark h3,
+.App.dark h4,
+.App.dark h5,
+.App.dark a,
+.App.dark span,
+.App.dark p,
+.App.dark i,
+.App.dark li,
+.App.dark label {
+  color: #e5e5e5;
+}
+.App .nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
