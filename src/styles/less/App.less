@@ -3,6 +3,10 @@
 @dark-color: #e5e5e5;
 @dark-active-color: #47b2f5;
 
+// :root {
+//     --joy-palette-neutral-plainHoverBg: #000;
+// }
+
 .App {
 
     overflow: hidden;
@@ -27,7 +31,6 @@
             color: @light-color;
         }
 
-        
     }
 
     &.dark {
@@ -37,6 +40,9 @@
             color: @dark-color;
         }
 
+        .nav a:hover{
+            color: @light-color;
+        }
        
     }
 
@@ -51,18 +57,10 @@
         position: absolute;
         top: 0;
         width: 100%;
+        margin: 10px 0;
         display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-
-        .menu {
-
-        }
-
-        .controls {
-            
-        }
+        justify-content: flex-end;
 
     }
 

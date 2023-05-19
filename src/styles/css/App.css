@@ -42,6 +42,9 @@
 .App.dark label {
   color: #e5e5e5;
 }
+.App.dark .nav a:hover {
+  color: #000;
+}
 .App .main-content {
   position: relative;
   width: 80%;
@@ -51,8 +54,8 @@
   position: absolute;
   top: 0;
   width: 100%;
+  margin: 10px 0;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
