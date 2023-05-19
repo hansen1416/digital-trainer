@@ -1,26 +1,27 @@
-import "../styles/css/MusclePercentage.css";
+import Typography from "@mui/joy/Typography";
+import Badge from "@mui/joy/Badge";
+import Box from "@mui/joy/Box";
 import { muscleGroupsColors } from "../lib/ropes";
 
-export default function MusclePercentage({ musclesPercent, limit = 10 }) {
+
+export default function MusclePercentage({ musclesPercent }) {
 	const muscleArr = Object.keys(muscleGroupsColors);
 
 	return (
 		<div className="muscle-percentage">
-			{muscleArr.map((name, idx) => {
-				return (
-					<i key={idx}>
-						{Boolean(
-							idx < Number(limit) &&
-								name in musclesPercent &&
-								~~musclesPercent[name]
-						) && (
-							<span>
-								{name}: {musclesPercent[name]}%
-							</span>
-						)}
-					</i>
-				);
-			})}
+			<Box sx={{ display: "flex", gap: 4 }}>
+				{muscleArr.map((name, idx) => {
+					return (
+						<Badge
+							key={idx}
+							badgeContent={musclesPercent[name] + "%"}
+							variant="solid"
+						>
+							<Typography fontSize="xl">name</Typography>
+						</Badge>
+					);
+				})}
+			</Box>
 		</div>
 	);
 }
