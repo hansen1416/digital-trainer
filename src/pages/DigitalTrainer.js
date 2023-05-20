@@ -2,6 +2,18 @@ import { useEffect, useState, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { cloneDeep } from "lodash";
+import { Pose } from "@mediapipe/pose";
+import RangeSlider from "react-range-slider-input";
+import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
+import { createWorkerFactory, useWorker } from "@shopify/react-web-worker";
+import "react-range-slider-input/dist/style.css";
+
+import "../styles/css/DigitalTrainer.css";
+// import SubThreeJsScene from "../components/SubThreeJsScene";
+import Silhouette3D from "../components/Silhouette3D";
+import Counter from "../components/Counter";
+import PoseSync from "../components/PoseSync";
 
 export default function DigitalTrainer() {
 	const canvasRef = useRef(null);
