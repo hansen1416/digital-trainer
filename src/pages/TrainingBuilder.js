@@ -27,7 +27,7 @@ export default function TrainingBuilder() {
 	const kasten = useRef(null);
 
 	const [itemWidth, setitemWidth] = useState(100);
-	const [itemHeight, setitemHeight] = useState(100);
+	// const [itemHeight, setitemHeight] = useState(100);
 
 	const pageSize = 12;
 
@@ -50,7 +50,7 @@ export default function TrainingBuilder() {
 				const height = width + 300;
 
 				setitemWidth(width);
-				setitemHeight(height);
+				// setitemHeight(height);
 
 				renderer.current.setSize(width - 20, width - 20);
 			});
