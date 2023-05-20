@@ -6,8 +6,10 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import "../styles/css/TrainingBuilder.css";
 import { loadJSON, loadGLTF } from "../lib/ropes";
+import { cloneDeep } from "lodash";
 
 import ExerciseCard from "../components/ExerciseCard";
+import TrainingSlideEditor from "../components/TrainingSlideEditor";
 
 export default function TrainingBuilder() {
 	const canvasRef = useRef(null);
@@ -37,6 +39,8 @@ export default function TrainingBuilder() {
 	const [pageData, setpageData] = useState([]);
 
 	const imgdeduct = 50;
+
+	const [trainingData, settrainingData] = useState({});
 
 	useEffect(() => {
 		let resizeObserver;
@@ -244,10 +248,46 @@ export default function TrainingBuilder() {
 		});
 	}
 
+	function addExerciseToTraining(exercise) {
+		setscenePos({ top: -1000, left: -1000 });
+
+		mixer.current.stopAllAction();
+
+		const tmp = cloneDeep(trainingData);
+
+		if (!tmp || !tmp.exercises) {
+			Object.assign(tmp, {
+				name: "training name",
+				duration: 0,
+				intensity: 0,
+				calories: 0,
+				muscle_groups: {
+					chest: 0.6,
+					shoulders: 0.3,
+					back: 0.1,
+					arms: 0.0,
+					abdominals: 0.0,
+					legs: 0.0,
+				},
+				exercises: [],
+			});
+		}
+
+		tmp.exercises.push(Object.assign({ reps: 1, rest: 5 }, exercise));
+
+		settrainingData(tmp);
+	}
+
 	return (
 		<div className="main-content training-builder" ref={kasten}>
 			<div className="title">
 				<h1>Training Builder</h1>
+			</div>
+			<div>
+				<TrainingSlideEditor
+					trainingData={trainingData}
+					settrainingData={settrainingData}
+				/>
 			</div>
 			<div className="exercise-list">
 				{pageData.map((exercise, idx) => {
