@@ -297,6 +297,7 @@ export default function TrainingBuilder() {
 							data={exercise}
 							width={itemWidth}
 							onImgClick={viewExercise}
+							addExercise={addExerciseToTraining}
 						/>
 					);
 				})}

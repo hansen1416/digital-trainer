@@ -8,7 +8,7 @@ import { roundToTwo } from "../lib/ropes";
 
 import MusclePercentage from "../components/MusclePercentage";
 
-export default function ExerciseCard({ data, width, onImgClick }) {
+export default function ExerciseCard({ data, width, onImgClick, addExercise }) {
 	return (
 		<Card
 			sx={{
@@ -44,6 +44,9 @@ export default function ExerciseCard({ data, width, onImgClick }) {
 						sx={{
 							ml: "auto",
 							fontWeight: 600,
+						}}
+						onClick={() => {
+							addExercise(data);
 						}}
 					>
 						Add
