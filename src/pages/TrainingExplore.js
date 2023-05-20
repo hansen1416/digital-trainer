@@ -130,6 +130,24 @@ export default function TrainingExplore() {
 					);
 				})}
 			</div>
+			<div className="pagination">
+				{totalPage.map((p) => {
+					return (
+						<div
+							key={p}
+							className={[
+								"page",
+								currentPage === p ? "active" : "",
+							].join(" ")}
+							onClick={() => {
+								loadPageData(p);
+							}}
+						>
+							<span>{p}</span>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 }
