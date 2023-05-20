@@ -64,7 +64,7 @@ export default function TrainingReport() {
 							margin: "20px 0",
 						}}
 					>
-						<Chip variant="solid" color="info" size="md">
+						<Chip variant="solid" color="primary" size="md">
 							Exercises
 						</Chip>
 					</Divider>

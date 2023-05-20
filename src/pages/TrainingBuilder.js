@@ -4,6 +4,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
+import Divider from "@mui/joy/Divider";
+import Chip from "@mui/joy/Chip";
 import "../styles/css/TrainingBuilder.css";
 import { loadJSON, loadGLTF } from "../lib/ropes";
 import { cloneDeep } from "lodash";
@@ -283,12 +285,26 @@ export default function TrainingBuilder() {
 			<div className="title">
 				<h1>Training Builder</h1>
 			</div>
+
 			<div>
 				<TrainingSlideEditor
 					trainingData={trainingData}
 					settrainingData={settrainingData}
 				/>
 			</div>
+			{trainingData && trainingData.name && (
+				<Divider
+					orientation="horizontal"
+					sx={{
+						"--Divider-childPosition": "20%",
+						margin: "20px 0",
+					}}
+				>
+					<Chip variant="solid" color="primary" size="md">
+						Exercises
+					</Chip>
+				</Divider>
+			)}
 			<div className="exercise-list">
 				{pageData.map((exercise, idx) => {
 					return (
