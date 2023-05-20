@@ -190,6 +190,57 @@ export default function TrainingBuilder() {
 		animationPointer.current = requestAnimationFrame(animate);
 	}
 
+	function viewExercise(e, exercise_key) {
+		mixer.current.stopAllAction();
+
+		const { top, left } = e.target.getBoundingClientRect();
+
+		setscenePos({ top: top + window.scrollY, left: left });
+
+		loadJSON(
+			process.env.PUBLIC_URL + "/data/exercises/" + exercise_key + ".json"
+		).then((animation_data) => {
+			if (animation_data.position) {
+				subsceneModel.current.position.set(
+					animation_data.position.x,
+					animation_data.position.y,
+					animation_data.position.z
+				);
+			} else {
+				subsceneModel.current.position.set(0, 0, 0);
+			}
+
+			if (animation_data.rotation) {
+				subsceneModel.current.rotation.set(
+					animation_data.rotation.x,
+					animation_data.rotation.y,
+					animation_data.rotation.z
+				);
+			} else {
+				subsceneModel.current.rotation.set(0, 0, 0);
+			}
+
+			// prepare the example exercise action
+			const action = mixer.current.clipAction(
+				THREE.AnimationClip.parse(animation_data)
+			);
+
+			action.reset();
+			action.setLoop(THREE.LoopRepeat);
+			// action.setLoop(THREE.LoopOnce);
+
+			// keep model at the position where it stops
+			action.clampWhenFinished = true;
+
+			action.enable = true;
+
+			action.play();
+
+			// mixer.current.setTime(0.01)
+			// prepare the example exercise action
+		});
+	}
+
 	return (
 		<div className="main-content training-explore" ref={kasten}>
 			<div className="title">
@@ -219,7 +270,7 @@ export default function TrainingBuilder() {
 				>
 					{totalPage.map((p) => {
 						return (
-							<ListItem role="none">
+							<ListItem role="none" key={p}>
 								<ListItemButton
 									role="menuitem"
 									component="a"
