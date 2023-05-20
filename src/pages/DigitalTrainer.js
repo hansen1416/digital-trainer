@@ -17,6 +17,47 @@ export default function DigitalTrainer() {
 	const figureParts = useRef({});
 	// ======== main scene 3d model end
 
+	// ======== for comparing start
+	// blazepose pose model
+	const poseDetector = useRef(null);
+	// landmarks of human joints
+	// const keypoints2D = useRef(null);
+	const keypoints3D = useRef(null);
+	// compare by joints distances
+	const poseSync = useRef(null);
+	const [poseSyncThreshold, setposeSyncThreshold] = useState(80);
+	const poseSyncThresholdRef = useRef(0);
+	const [diffScore, setdiffScore] = useState(0);
+	const poseCompareResult = useRef(null);
+	// const poseSyncVector = useRef(null);
+	// ======== for comparing end
+
+	// ======== loading status
+	const [loadingCamera, setloadingCamera] = useState(true);
+	const [loadingModel, setloadingModel] = useState(true);
+	const [loadingCharacter, setloadingCharacter] = useState(true);
+	const [loadingSilhouette, setloadingSilhouette] = useState(true);
+	const [loadingTraining, setloadingTraining] = useState(true);
+	// ======== loading status
+
+	// ======== sub scene start
+	// example exercise subscene
+	const canvasRefEg = useRef(null);
+	const sceneEg = useRef(null);
+	const cameraEg = useRef(null);
+	const rendererEg = useRef(null);
+	const controlsEg = useRef(null);
+
+	const mixer = useRef(null);
+	const clock = new THREE.Clock();
+
+	// pose capture sub scene
+	const canvasRefSub = useRef(null);
+	const sceneSub = useRef(null);
+	const cameraSub = useRef(null);
+	const rendererSub = useRef(null);
+	const controlsSub = useRef(null);
+
 	const [subsceneWidth, setsubsceneWidth] = useState(0);
 	const [subsceneHeight, setsubsceneHeight] = useState(0);
 	const subsceneWidthRef = useRef(0);
