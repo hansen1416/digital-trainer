@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-
+import Button from "@mui/joy/Button";
 import { cloneDeep } from "lodash";
 
 import "../styles/css/TrainingSlideEditor.css";
