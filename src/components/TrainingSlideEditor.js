@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import Button from "@mui/joy/Button";
+import Input from "@mui/joy/Input";
 import { cloneDeep } from "lodash";
 
 import "../styles/css/TrainingSlideEditor.css";
@@ -128,19 +129,18 @@ export default function TrainingSlideEditor({ trainingData, settrainingData }) {
 					<div className="title">
 						<div>
 							<div className="name">
-								<span>
-									name:{" "}
-									<input
-										value={trainingData.name}
-										onChange={(e) => {
-											const tmp = cloneDeep(trainingData);
+								<Input
+									size="md"
+									placeholder="Medium"
+									value={trainingData.name}
+									onChange={(e) => {
+										const tmp = cloneDeep(trainingData);
 
-											tmp.name = e.target.value;
+										tmp.name = e.target.value;
 
-											settrainingData(tmp);
-										}}
-									/>
-								</span>
+										settrainingData(tmp);
+									}}
+								/>
 							</div>
 							<div className="stats">
 								<span style={{ textTransform: "capitalize" }}>
