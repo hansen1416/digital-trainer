@@ -132,7 +132,115 @@ export default function DigitalTrainer() {
 
 	const animationFps = 30;
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		/**
+		 * create main scene, pose scene, eg scene
+		 * load pose detector, models, training list
+		 */
+		const documentWidth = document.documentElement.clientWidth;
+		const documentHeight = document.documentElement.clientHeight;
+
+		setsubsceneWidth(documentWidth * 0.3);
+		// remember not to use a squared video
+		setsubsceneHeight((documentWidth * 0.3 * 480) / 640);
+
+		subsceneWidthRef.current = documentWidth * 0.3;
+		subsceneHeightRef.current = (documentWidth * 0.3 * 480) / 640;
+
+		// scene take entire screen
+		creatMainScene(documentWidth, documentHeight);
+		// sub scene play captured pose
+		createSubScene();
+		// sub scene play example exercise
+		createEgScene();
+
+		invokeCamera(videoRef.current, () => {
+			setloadingCamera(false);
+		});
+
+		poseDetector.current = new Pose({
+			locateFile: (file) => {
+				return process.env.PUBLIC_URL + `/mediapipe/pose/${file}`;
+				// return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+			},
+		});
+		poseDetector.current.setOptions({
+			modelComplexity: 2,
+			smoothLandmarks: true,
+			enableSegmentation: false,
+			smoothSegmentation: false,
+			minDetectionConfidence: 0.5,
+			minTrackingConfidence: 0.5,
+		});
+
+		poseDetector.current.onResults(capturePoseCallback);
+
+		poseDetector.current.initialize().then(() => {
+			setloadingModel(false);
+
+			animate();
+		});
+
+		Promise.all([
+			// poseDetection.createDetector(
+			// 	poseDetection.SupportedModels.BlazePose,
+			// 	BlazePoseConfig
+			// ),
+			loadGLTF(process.env.PUBLIC_URL + "/glb/dors.glb"),
+			loadGLTF(process.env.PUBLIC_URL + "/glb/dors.glb"),
+			// loadGLTF(process.env.PUBLIC_URL + "/glb/yundong.glb"),
+			// loadGLTF(process.env.PUBLIC_URL + "/glb/girl.glb"),
+		]).then(([glb, glbEg]) => {
+			// add 3d model to main scene
+			mannequinModel.current = glb.scene.children[0];
+			mannequinModel.current.position.set(0, -1, 0);
+
+			// store all limbs to `mannequinModel`
+			traverseModel(mannequinModel.current, figureParts.current);
+
+			// console.log(Object.keys(figureParts.current));
+
+			scene.current.add(mannequinModel.current);
+
+			// example exercise sub scene
+			const modelEg = glbEg.scene.children[0];
+			sceneEg.current.add(modelEg);
+
+			modelEg.position.set(0, -1, 0);
+
+			mixer.current = new THREE.AnimationMixer(modelEg);
+
+			setloadingCharacter(false);
+		});
+
+		// add silhouette to subscene
+		Promise.all(
+			Silhouette3D.limbs.map((name) =>
+				loadJSON(process.env.PUBLIC_URL + "/t/" + name + ".json")
+			)
+		).then((results) => {
+			const geos = {};
+
+			for (let data of results) {
+				geos[data.name] = jsonToBufferGeometry(data);
+			}
+
+			silhouette.current = new Silhouette3D(geos);
+			const body = silhouette.current.init();
+
+			// getMeshSize(figure.current.foot_l.mesh, scene.current)
+
+			sceneSub.current.add(body);
+
+			setloadingSilhouette(false);
+		});
+
+		return () => {
+			cancelAnimationFrame(animationPointer.current);
+		};
+
+		// eslint-disable-next-line
+	}, []);
 
 	return (
 		<div className="digital-trainer">
