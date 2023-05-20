@@ -9,8 +9,6 @@ import { roundToTwo } from "../lib/ropes";
 import MusclePercentage from "../components/MusclePercentage";
 
 export default function ExerciseCard({ data, width, height }) {
-	console.log(data);
-
 	return (
 		<Card
 			sx={{
@@ -27,6 +25,7 @@ export default function ExerciseCard({ data, width, height }) {
 					display: "flex",
 					flexDirection: "row",
 					justifyContent: "space-between",
+					marginBottom: "10px",
 				}}
 			>
 				<div>
@@ -55,9 +54,6 @@ export default function ExerciseCard({ data, width, height }) {
 			<Box
 				sx={{
 					position: "relative",
-					// paddingLeft: "20px",
-					// paddingRight: "20px",
-					// paddingTop: "20px",
 				}}
 			>
 				<AspectRatio ratio="1/1">
@@ -75,30 +71,7 @@ export default function ExerciseCard({ data, width, height }) {
 					</figure>
 				</AspectRatio>
 			</Box>
-			<Box sx={{ display: "flex" }}>
-				<div>
-					<Typography fontSize="lg" fontWeight="lg">
-						<span>{data.display_name}</span>
-						<span>duration: {roundToTwo(data.duration)}</span>
-					</Typography>
-					<Typography level="body3"></Typography>
-				</div>
-				{/* <div>
-					<MusclePercentage musclesPercent={data.muscle_groups} />
-				</div>
-				<Button
-					variant="solid"
-					size="sm"
-					color="primary"
-					aria-label="Explore Bahamas Islands"
-					sx={{
-						ml: "auto",
-						fontWeight: 600,
-					}}
-				>
-					add
-				</Button> */}
-			</Box>
+			<MusclePercentage musclesPercent={data.muscle_groups} />
 		</Card>
 	);
 }

@@ -20,9 +20,10 @@ export default function MusclePercentage({ musclesPercent }) {
 						<Badge
 							key={idx}
 							badgeContent={musclesPercent[name] + "%"}
-							variant="solid"
+							// variant="solid"
+							size="sm"
 						>
-							<Typography fontSize="xl">{name}</Typography>
+							<Typography level="body2">{name}</Typography>
 						</Badge>
 					);
 				})}
