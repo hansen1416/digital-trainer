@@ -24,6 +24,20 @@ export default function TrainingSlideEditor({ trainingData, settrainingData }) {
 		}
 	}, []);
 
+	useEffect(() => {
+		if (
+			trainingDataRef.current &&
+			(!trainingDataRef.current.exercises ||
+				trainingDataRef.current.exercises.length !==
+					trainingData.exercises.length)
+		) {
+			calculateTrainingInfo(trainingData);
+		}
+
+		trainingDataRef.current = trainingData;
+		// eslint-disable-next-line
+	}, [trainingData]);
+
 	return (
 		<div className="training-slide-editor" ref={kasten}>
 			{trainingData && trainingData.name && (
