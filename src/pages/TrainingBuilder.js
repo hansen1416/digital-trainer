@@ -285,13 +285,6 @@ export default function TrainingBuilder() {
 			<div className="title">
 				<h1>Training Builder</h1>
 			</div>
-
-			<div>
-				<TrainingSlideEditor
-					trainingData={trainingData}
-					settrainingData={settrainingData}
-				/>
-			</div>
 			{trainingData && trainingData.name && (
 				<Divider
 					orientation="horizontal"
@@ -301,10 +294,27 @@ export default function TrainingBuilder() {
 					}}
 				>
 					<Chip variant="solid" color="primary" size="md">
-						Exercises
+						Builder
 					</Chip>
 				</Divider>
 			)}
+			<div>
+				<TrainingSlideEditor
+					trainingData={trainingData}
+					settrainingData={settrainingData}
+				/>
+			</div>
+			<Divider
+				orientation="horizontal"
+				sx={{
+					"--Divider-childPosition": "20%",
+					margin: "20px 0",
+				}}
+			>
+				<Chip variant="solid" color="primary" size="md">
+					Exercises
+				</Chip>
+			</Divider>
 			<div className="exercise-list">
 				{pageData.map((exercise, idx) => {
 					return (
