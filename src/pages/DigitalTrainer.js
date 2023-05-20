@@ -12,8 +12,15 @@ export default function DigitalTrainer() {
 
 	const videoRef = useRef(null);
 
+	// ======== main scene 3d model start
+	const mannequinModel = useRef(null);
+	const figureParts = useRef({});
+	// ======== main scene 3d model end
+
 	const [subsceneWidth, setsubsceneWidth] = useState(0);
 	const [subsceneHeight, setsubsceneHeight] = useState(0);
+	const subsceneWidthRef = useRef(0);
+	const subsceneHeightRef = useRef(0);
 
 	useEffect(() => {}, []);
 
