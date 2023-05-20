@@ -8,7 +8,7 @@ import { roundToTwo } from "../lib/ropes";
 
 import MusclePercentage from "../components/MusclePercentage";
 
-export default function ExerciseCard({ data, width, height }) {
+export default function ExerciseCard({ data, width, onImgClick }) {
 	return (
 		<Card
 			sx={{
@@ -56,7 +56,12 @@ export default function ExerciseCard({ data, width, height }) {
 					marginBottom: "16px",
 				}}
 			>
-				<AspectRatio ratio="1/1">
+				<AspectRatio
+					ratio="1/1"
+					onClick={(e) => {
+						onImgClick(e, data);
+					}}
+				>
 					<figure>
 						<img
 							src={

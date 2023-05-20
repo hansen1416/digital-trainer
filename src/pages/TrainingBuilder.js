@@ -190,7 +190,9 @@ export default function TrainingBuilder() {
 		animationPointer.current = requestAnimationFrame(animate);
 	}
 
-	function viewExercise(e, exercise_key) {
+	function viewExercise(e, exercise_data) {
+		const exercise_key = exercise_data.name;
+
 		mixer.current.stopAllAction();
 
 		const { top, left } = e.target.getBoundingClientRect();
@@ -253,7 +255,7 @@ export default function TrainingBuilder() {
 							key={idx}
 							data={exercise}
 							width={itemWidth}
-							height={itemHeight}
+							onImgClick={viewExercise}
 						/>
 					);
 				})}
