@@ -1,4 +1,4 @@
-import composeLimbVectors from "../components/PoseSyncVector";
+import composeLimbVectors from "../lib/PoseSyncVector";
 
 function getJointsPosAtIdx(joints_position, idx) {
 	const bonesJoints = [
