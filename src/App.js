@@ -5,7 +5,6 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import ListDivider from "@mui/joy/ListDivider";
-import ListItemDecorator from "@mui/joy/ListItemDecorator";
 
 import { ReactComponent as DarkSvg } from "./svg/sun.svg";
 import { ReactComponent as LightSvg } from "./svg/sun-light.svg";
@@ -31,9 +30,9 @@ function App() {
 						<ListItemButton
 							role="menuitem"
 							component="a"
-							href="#horizontal-list"
+							href="/digital-trainer"
 						>
-							Digital Trainer
+							D-Trainer
 						</ListItemButton>
 					</ListItem>
 					<ListDivider />
@@ -41,7 +40,7 @@ function App() {
 						<ListItemButton
 							role="menuitem"
 							component="a"
-							href="#horizontal-list"
+							href="/training-builder"
 						>
 							Training Builder
 						</ListItemButton>
@@ -51,7 +50,7 @@ function App() {
 						<ListItemButton
 							role="menuitem"
 							component="a"
-							href="#horizontal-list"
+							href="/training-explore"
 							aria-label="Profile"
 						>
 							Training Explorer

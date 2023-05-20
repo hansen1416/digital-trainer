@@ -6,6 +6,9 @@ import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import ErrorPage from "./pages/ErrorPage";
+import DigitalTrainer from "./pages/DigitalTrainer";
+import TrainingBuilder from "./pages/TrainingBuilder";
+import TrainingExplore from "./pages/TrainingExplore";
 import TrainingReport from "./pages/TrainingReport";
 
 const routes = [
@@ -17,6 +20,18 @@ const routes = [
 			{
 				path: "/training-report",
 				element: <TrainingReport />,
+			},
+			{
+				path: "/training-builder",
+				element: <TrainingBuilder />,
+			},
+			{
+				path: "/training-explore",
+				element: <TrainingExplore />,
+			},
+			{
+				path: "/digital-trainer",
+				element: <DigitalTrainer />,
 			},
 		],
 	},
