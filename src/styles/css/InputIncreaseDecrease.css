@@ -1,0 +1,50 @@
+.input-increase-descrease {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.input-increase-descrease .value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #000;
+}
+.input-increase-descrease .value-button:hover {
+  cursor: pointer;
+}
+.input-increase-descrease .value-button.decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+.input-increase-descrease .value-button.increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+.input-increase-descrease input {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+.input-increase-descrease input[type=number]::-webkit-inner-spin-button,
+.input-increase-descrease input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
