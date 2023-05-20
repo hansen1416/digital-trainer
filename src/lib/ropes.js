@@ -139,3 +139,9 @@ export function pearson_corr(x, y) {
 		)
 	);
 }
+
+export function loadJSON(url) {
+	return new Promise((resolve) => {
+		fetch(url).then((response) => resolve(response.json()));
+	});
+}
