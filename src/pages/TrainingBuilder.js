@@ -7,6 +7,8 @@ import ExerciseCard from "../components/ExerciseCard";
 export default function TrainingBuilder() {
 	// const canvasRef = useRef(null);
 
+	const kasten = useRef(null);
+
 	const [itemWidth, setitemWidth] = useState(100);
 	const [itemHeight, setitemHeight] = useState(100);
 
@@ -18,6 +20,24 @@ export default function TrainingBuilder() {
 	const [pageData, setpageData] = useState([]);
 
 	useEffect(() => {
+		let resizeObserver;
+		// watch box size change and set size for individual block
+		if (kasten.current) {
+			// wait for the elementRef to be available
+			resizeObserver = new ResizeObserver(([ResizeObserverEntry]) => {
+				// Do what you want to do when the size of the element changes
+				const width = parseInt(
+					ResizeObserverEntry.contentRect.width / 4
+				);
+
+				const height = width + 300;
+
+				setitemWidth(width);
+				setitemHeight(height);
+			});
+			resizeObserver.observe(kasten.current);
+		}
+
 		fetch(
 			process.env.PUBLIC_URL +
 				"/data/exercise-list.json?r=" +
@@ -83,7 +103,7 @@ export default function TrainingBuilder() {
 	}
 
 	return (
-		<div className="main-content training-explore">
+		<div className="main-content training-explore" ref={kasten}>
 			<div className="title">
 				<h1>Training Explore</h1>
 			</div>
