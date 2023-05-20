@@ -10,7 +10,6 @@ import { createWorkerFactory, useWorker } from "@shopify/react-web-worker";
 import "react-range-slider-input/dist/style.css";
 
 import "../styles/css/DigitalTrainer.css";
-// import SubThreeJsScene from "../components/SubThreeJsScene";
 import Silhouette3D from "../components/Silhouette3D";
 import Counter from "../components/Counter";
 import PoseSync from "../components/PoseSync";
