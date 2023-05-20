@@ -56,7 +56,7 @@ function App() {
 							Training Explorer
 						</ListItemButton>
 					</ListItem>
-					<ListDivider />
+					{/* <ListDivider />
 					<ListItem role="none">
 						<ListItemButton
 							role="menuitem"
@@ -69,7 +69,7 @@ function App() {
 						>
 							{theme === "dark" ? <LightSvg /> : <DarkSvg />}
 						</ListItemButton>
-					</ListItem>
+					</ListItem> */}
 				</List>
 			</div>
 		</div>
