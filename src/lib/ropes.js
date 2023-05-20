@@ -1,3 +1,6 @@
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
 const typeSizes = {
 	undefined: () => 0,
 	boolean: () => 4,
@@ -143,5 +146,12 @@ export function pearson_corr(x, y) {
 export function loadJSON(url) {
 	return new Promise((resolve) => {
 		fetch(url).then((response) => resolve(response.json()));
+	});
+}
+
+export function loadGLTF(url) {
+	return new Promise((resolve) => {
+		const loader = new GLTFLoader();
+		loader.load(url, (gltf) => resolve(gltf));
 	});
 }

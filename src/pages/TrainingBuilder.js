@@ -1,14 +1,28 @@
 import { useEffect, useState, useRef } from "react";
-import { loadJSON } from "../lib/ropes";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import "../styles/css/TrainingBuilder.css";
+import { loadJSON, loadGLTF } from "../lib/ropes";
 
 import ExerciseCard from "../components/ExerciseCard";
 
 export default function TrainingBuilder() {
-	// const canvasRef = useRef(null);
+	const canvasRef = useRef(null);
+	const scene = useRef(null);
+	const camera = useRef(null);
+	const renderer = useRef(null);
+	const controls = useRef(null);
+
+	// subscene and its animation
+	const [scenePos, setscenePos] = useState({ top: -1000, left: -1000 });
+	const mixer = useRef(null);
+	const clock = new THREE.Clock();
+	const animationPointer = useRef(0);
+	const subsceneModel = useRef(null);
+	// subscene and its animation
 
 	const kasten = useRef(null);
 
@@ -40,6 +54,10 @@ export default function TrainingBuilder() {
 			});
 			resizeObserver.observe(kasten.current);
 		}
+
+		creatMainScene(itemWidth - 20, itemWidth - 20);
+
+		animate();
 
 		fetch(
 			process.env.PUBLIC_URL +
@@ -83,6 +101,20 @@ export default function TrainingBuilder() {
 					setallData(tmp);
 				});
 			});
+
+		loadGLTF(process.env.PUBLIC_URL + "/glb/dors.glb").then((glb) => {
+			subsceneModel.current = glb.scene.children[0];
+
+			scene.current.add(subsceneModel.current);
+
+			mixer.current = new THREE.AnimationMixer(subsceneModel.current);
+		});
+
+		return () => {
+			if (resizeObserver) {
+				resizeObserver.disconnect(); // clean up observer
+			}
+		};
 	}, []);
 
 	useEffect(() => {
@@ -103,6 +135,59 @@ export default function TrainingBuilder() {
 		} else {
 			setpageData([]);
 		}
+	}
+
+	function creatMainScene(viewWidth, viewHeight) {
+		/**
+		 * main scene, which plays exercise animation
+		 * @param {number} viewWidth
+		 * @param {number} viewHeight
+		 */
+		scene.current = new THREE.Scene();
+		scene.current.background = new THREE.Color(0xf7797d);
+
+		camera.current = new THREE.PerspectiveCamera(
+			90,
+			viewWidth / viewHeight,
+			0.1,
+			1000
+		);
+
+		camera.current.position.set(0, 0.2, 1.4);
+
+		{
+			// mimic the sun light
+			const dlight = new THREE.PointLight(0xffffff, 0.4);
+			dlight.position.set(0, 10, 10);
+			scene.current.add(dlight);
+			// env light
+			scene.current.add(new THREE.AmbientLight(0xffffff, 0.6));
+		}
+
+		// drawScene();
+
+		renderer.current = new THREE.WebGLRenderer({
+			canvas: canvasRef.current,
+			// alpha: true,
+			// antialias: true,
+		});
+
+		renderer.current.toneMappingExposure = 0.5;
+
+		controls.current = new OrbitControls(camera.current, canvasRef.current);
+
+		renderer.current.setSize(viewWidth, viewHeight);
+	}
+	function animate() {
+		/** play animation in example sub scene */
+		const delta = clock.getDelta();
+
+		if (mixer.current) mixer.current.update(delta);
+
+		controls.current.update();
+		renderer.current.render(scene.current, camera.current);
+
+		animationPointer.current = requestAnimationFrame(animate);
 	}
 
 	return (
@@ -149,6 +234,16 @@ export default function TrainingBuilder() {
 					})}
 				</List>
 			</div>
+			<canvas
+				ref={canvasRef}
+				style={{
+					position: "absolute",
+					top: scenePos.top + "px",
+					left: scenePos.left + "px",
+					width: itemWidth - 20 + "px",
+					height: itemWidth - 20 + "px",
+				}}
+			/>
 		</div>
 	);
 }
