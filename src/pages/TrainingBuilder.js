@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
-import { roundToTwo, loadJSON } from "../lib/ropes";
+import { loadJSON } from "../lib/ropes";
+import "../styles/css/TrainingBuilder.css";
 
-import MusclePercentage from "../components/MusclePercentage";
+import ExerciseCard from "../components/ExerciseCard";
 
 export default function TrainingBuilder() {
 	// const canvasRef = useRef(null);
@@ -89,44 +90,12 @@ export default function TrainingBuilder() {
 			<div className="exercise-list">
 				{pageData.map((exercise, idx) => {
 					return (
-						<div
+						<ExerciseCard
 							key={idx}
-							className="exercise-block"
-							style={{
-								width: itemWidth + "px",
-								height: itemHeight + "px",
-							}}
-						>
-							<div onClick={(e) => {}}>
-								<img
-									style={{
-										width: itemWidth - 20 + "px",
-										height: itemWidth - 20 + "px",
-									}}
-									src={
-										process.env.PUBLIC_URL +
-										"/data/imgs/" +
-										exercise.name +
-										".png"
-									}
-									alt=""
-								/>
-							</div>
-							<div className="name">
-								<i>{exercise.display_name}</i>
-							</div>
-							<div>
-								<p>duration: {roundToTwo(exercise.duration)}</p>
-								<p>intensity: {exercise.intensity}</p>
-								<p>calories: {exercise.calories}</p>
-							</div>
-							<div>
-								<MusclePercentage
-									musclesPercent={exercise.muscle_groups}
-								/>
-							</div>
-							<div className="add"></div>
-						</div>
+							data={exercise}
+							width={itemWidth}
+							height={itemHeight}
+						/>
 					);
 				})}
 			</div>
