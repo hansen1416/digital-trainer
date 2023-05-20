@@ -156,7 +156,7 @@ export default function TrainingSlideEditor({ trainingData, settrainingData }) {
 						</div>
 						<div className="operation">
 							<Button
-								variant="primary"
+								color="primary"
 								onClick={() => {
 									// todo, save to API
 									window.localStorage.setItem(
