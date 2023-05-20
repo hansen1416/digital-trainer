@@ -17,7 +17,7 @@ export default function TrainingBuilder() {
 	const controls = useRef(null);
 
 	// subscene and its animation
-	const [scenePos, setscenePos] = useState({ top: -1000, left: -1000 });
+	const [scenePos, setscenePos] = useState({ top: 0, left: 0 });
 	const mixer = useRef(null);
 	const clock = new THREE.Clock();
 	const animationPointer = useRef(0);
@@ -51,6 +51,8 @@ export default function TrainingBuilder() {
 
 				setitemWidth(width);
 				setitemHeight(height);
+
+				renderer.current.setSize(width - 20, width - 20);
 			});
 			resizeObserver.observe(kasten.current);
 		}
@@ -237,9 +239,6 @@ export default function TrainingBuilder() {
 			action.enable = true;
 
 			action.play();
-
-			// mixer.current.setTime(0.01)
-			// prepare the example exercise action
 		});
 	}
 
