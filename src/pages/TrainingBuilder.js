@@ -245,9 +245,9 @@ export default function TrainingBuilder() {
 	}
 
 	return (
-		<div className="main-content training-explore" ref={kasten}>
+		<div className="main-content training-builder" ref={kasten}>
 			<div className="title">
-				<h1>Training Explore</h1>
+				<h1>Training Builder</h1>
 			</div>
 			<div className="exercise-list">
 				{pageData.map((exercise, idx) => {
