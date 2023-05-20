@@ -60,3 +60,7 @@
   flex-direction: row;
   justify-content: flex-end;
 }
+.App .splide {
+  padding-left: 0;
+  padding-right: 0;
+}

@@ -6,8 +6,16 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import ListDivider from "@mui/joy/ListDivider";
 
-import { ReactComponent as DarkSvg } from "./svg/sun.svg";
-import { ReactComponent as LightSvg } from "./svg/sun-light.svg";
+// Default theme
+// import '@splidejs/react-splide/css';
+// or other themes
+// import '@splidejs/react-splide/css/skyblue';
+import "@splidejs/react-splide/css/sea-green";
+// // or only core styles
+import "@splidejs/react-splide/css/core";
+
+// import { ReactComponent as DarkSvg } from "./svg/sun.svg";
+// import { ReactComponent as LightSvg } from "./svg/sun-light.svg";
 
 function App() {
 	const [theme, settheme] = useState("dark");
