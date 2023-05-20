@@ -54,6 +54,7 @@ export default function ExerciseCard({ data, width, height }) {
 			<Box
 				sx={{
 					position: "relative",
+					marginBottom: "16px",
 				}}
 			>
 				<AspectRatio ratio="1/1">

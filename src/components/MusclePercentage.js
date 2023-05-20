@@ -1,21 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Typography from "@mui/joy/Typography";
 import Badge from "@mui/joy/Badge";
 import Box from "@mui/joy/Box";
-import { muscleGroupsColors } from "../lib/ropes";
-import { clone } from "lodash";
 
 export default function MusclePercentage({ musclesPercent }) {
-	const muscleArr = Object.keys(muscleGroupsColors);
+	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		console.log(musclesPercent);
+		const tmp = [];
+
+		for (let name in musclesPercent) {
+			if (~~musclesPercent[name] > 0) {
+				tmp.push(name);
+			}
+		}
+
+		setData(tmp);
 	}, [musclesPercent]);
 
 	return (
 		<div className="muscle-percentage">
 			<Box sx={{ display: "flex", gap: 4 }}>
-				{muscleArr.map((name, idx) => {
+				{data.map((name, idx) => {
 					return (
 						<Badge
 							key={idx}
@@ -23,7 +29,14 @@ export default function MusclePercentage({ musclesPercent }) {
 							// variant="solid"
 							size="sm"
 						>
-							<Typography level="body2">{name}</Typography>
+							<Typography
+								level="body1"
+								sx={{
+									textTransform: "capitalize",
+								}}
+							>
+								{name}
+							</Typography>
 						</Badge>
 					);
 				})}
