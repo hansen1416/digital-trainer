@@ -143,7 +143,7 @@ export default function TrainingSlideEditor({ trainingData, settrainingData }) {
 								</span>
 							</div>
 							<div className="stats">
-								<span>
+								<span style={{ textTransform: "capitalize" }}>
 									duration:{" "}
 									{roundToTwo(trainingData.duration)}s
 								</span>
