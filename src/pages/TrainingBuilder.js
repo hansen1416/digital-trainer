@@ -289,7 +289,7 @@ export default function TrainingBuilder() {
 				<Divider
 					orientation="horizontal"
 					sx={{
-						"--Divider-childPosition": "20%",
+						// "--Divider-childPosition": "20%",
 						margin: "20px 0",
 					}}
 				>
@@ -307,7 +307,7 @@ export default function TrainingBuilder() {
 			<Divider
 				orientation="horizontal"
 				sx={{
-					"--Divider-childPosition": "20%",
+					// "--Divider-childPosition": "20%",
 					margin: "20px 0",
 				}}
 			>

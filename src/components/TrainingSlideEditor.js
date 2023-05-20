@@ -145,15 +145,7 @@ export default function TrainingSlideEditor({ trainingData, settrainingData }) {
 							<div className="stats">
 								<span>
 									duration:{" "}
-									{roundToTwo(trainingData.duration)}
-								</span>
-								<span>
-									intensity:{" "}
-									{roundToTwo(trainingData.intensity)}
-								</span>
-								<span>
-									calories:{" "}
-									{roundToTwo(trainingData.calories)}
+									{roundToTwo(trainingData.duration)}s
 								</span>
 							</div>
 							<div>
