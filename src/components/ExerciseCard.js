@@ -9,17 +9,57 @@ import { roundToTwo } from "../lib/ropes";
 import MusclePercentage from "../components/MusclePercentage";
 
 export default function ExerciseCard({ data, width, height }) {
+	console.log(data);
+
 	return (
 		<Card
 			sx={{
 				display: "inline-block",
-				width: width,
-				bgcolor: "initial",
+				width: width - 48,
+				bgcolor: "#2A3E96",
 				boxShadow: "none",
-				"--Card-padding": "0px",
+				marginRight: "16px",
+				marginBottom: "16px",
 			}}
 		>
-			<Box sx={{ position: "relative" }}>
+			<Box
+				sx={{
+					display: "flex",
+					flexDirection: "row",
+					justifyContent: "space-between",
+				}}
+			>
+				<div>
+					<Typography fontSize="lg" fontWeight="lg">
+						<span>{data.display_name}</span>
+					</Typography>
+					<Typography level="body3">
+						<span>duration: {roundToTwo(data.duration)}</span>
+					</Typography>
+				</div>
+				<div>
+					<Button
+						variant="solid"
+						size="sm"
+						color="primary"
+						sx={{
+							ml: "auto",
+							fontWeight: 600,
+							textTransform: "capitalize",
+						}}
+					>
+						add
+					</Button>
+				</div>
+			</Box>
+			<Box
+				sx={{
+					position: "relative",
+					// paddingLeft: "20px",
+					// paddingRight: "20px",
+					// paddingTop: "20px",
+				}}
+			>
 				<AspectRatio ratio="1/1">
 					<figure>
 						<img
@@ -37,16 +77,13 @@ export default function ExerciseCard({ data, width, height }) {
 			</Box>
 			<Box sx={{ display: "flex" }}>
 				<div>
-					<Typography level="body3">
-						<i>{data.display_name}</i>
-					</Typography>
 					<Typography fontSize="lg" fontWeight="lg">
-						<p>duration: {roundToTwo(data.duration)}</p>
-						<p>intensity: {data.intensity}</p>
-						<p>calories: {data.calories}</p>
+						<span>{data.display_name}</span>
+						<span>duration: {roundToTwo(data.duration)}</span>
 					</Typography>
+					<Typography level="body3"></Typography>
 				</div>
-				<div>
+				{/* <div>
 					<MusclePercentage musclesPercent={data.muscle_groups} />
 				</div>
 				<Button
@@ -60,7 +97,7 @@ export default function ExerciseCard({ data, width, height }) {
 					}}
 				>
 					add
-				</Button>
+				</Button> */}
 			</Box>
 		</Card>
 	);
