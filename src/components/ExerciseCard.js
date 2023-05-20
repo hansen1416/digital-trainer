@@ -32,8 +32,8 @@ export default function ExerciseCard({ data, width, height }) {
 					<Typography fontSize="lg" fontWeight="lg">
 						<span>{data.display_name}</span>
 					</Typography>
-					<Typography level="body3">
-						<span>duration: {roundToTwo(data.duration)}</span>
+					<Typography level="body2">
+						<span>duration: {roundToTwo(data.duration)}s</span>
 					</Typography>
 				</div>
 				<div>
@@ -44,10 +44,9 @@ export default function ExerciseCard({ data, width, height }) {
 						sx={{
 							ml: "auto",
 							fontWeight: 600,
-							textTransform: "capitalize",
 						}}
 					>
-						add
+						Add
 					</Button>
 				</div>
 			</Box>

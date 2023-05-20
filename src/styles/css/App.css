@@ -42,7 +42,8 @@
 .App.dark label {
   color: #e5e5e5;
 }
-.App.dark .nav a:hover {
+.App.dark .nav a:hover,
+.App.dark .pagination a:hover {
   color: #000;
 }
 .App .main-content {

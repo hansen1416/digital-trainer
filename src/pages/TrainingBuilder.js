@@ -1,5 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { loadJSON } from "../lib/ropes";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemButton from "@mui/joy/ListItemButton";
 import "../styles/css/TrainingBuilder.css";
 
 import ExerciseCard from "../components/ExerciseCard";
@@ -120,22 +123,31 @@ export default function TrainingBuilder() {
 				})}
 			</div>
 			<div className="pagination">
-				{totalPage.map((p) => {
-					return (
-						<div
-							key={p}
-							className={[
-								"page",
-								currentPage === p ? "active" : "",
-							].join(" ")}
-							onClick={() => {
-								loadPageData(p);
-							}}
-						>
-							<span>{p}</span>
-						</div>
-					);
-				})}
+				<List
+					role="menubar"
+					orientation="horizontal"
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "flex-end",
+					}}
+				>
+					{totalPage.map((p) => {
+						return (
+							<ListItem role="none">
+								<ListItemButton
+									role="menuitem"
+									component="a"
+									onClick={() => {
+										loadPageData(p);
+									}}
+								>
+									{p}
+								</ListItemButton>
+							</ListItem>
+						);
+					})}
+				</List>
 			</div>
 		</div>
 	);
