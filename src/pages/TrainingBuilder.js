@@ -161,11 +161,11 @@ export default function TrainingBuilder() {
 
 		{
 			// mimic the sun light
-			const dlight = new THREE.PointLight(0xffffff, 0.8);
+			const dlight = new THREE.PointLight(0xf8797d, 0.7);
 			dlight.position.set(0, 10, 2);
 			scene.current.add(dlight);
 			// env light
-			scene.current.add(new THREE.AmbientLight(0xffffff, 0.2));
+			scene.current.add(new THREE.AmbientLight(0xffffff, 0.3));
 		}
 
 		// drawScene();
