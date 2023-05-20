@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
+import { cloneDeep } from "lodash";
+
+import "../styles/css/TrainingSlideEditor.css";
+import MusclePercentage from "./MusclePercentage";
+import InputIncreaseDecrease from "./InputIncreaseDecrease";
+import { roundToTwo } from "./ropes";
+
 export default function TrainingSlideEditor({ trainingData, settrainingData }) {
 	const kasten = useRef(null);
 
