@@ -17,7 +17,7 @@ export default function TrainingBuilder() {
 	const controls = useRef(null);
 
 	// subscene and its animation
-	const [scenePos, setscenePos] = useState({ top: 0, left: 0 });
+	const [scenePos, setscenePos] = useState({ top: -1000, left: -1000 });
 	const mixer = useRef(null);
 	const clock = new THREE.Clock();
 	const animationPointer = useRef(0);
@@ -36,6 +36,8 @@ export default function TrainingBuilder() {
 	const [allData, setallData] = useState([]);
 	const [pageData, setpageData] = useState([]);
 
+	const imgdeduct = 50;
+
 	useEffect(() => {
 		let resizeObserver;
 		// watch box size change and set size for individual block
@@ -47,17 +49,17 @@ export default function TrainingBuilder() {
 					ResizeObserverEntry.contentRect.width / 4
 				);
 
-				const height = width + 300;
+				// const height = width + 300;
 
 				setitemWidth(width);
 				// setitemHeight(height);
 
-				renderer.current.setSize(width - 20, width - 20);
+				renderer.current.setSize(width - imgdeduct, width - imgdeduct);
 			});
 			resizeObserver.observe(kasten.current);
 		}
 
-		creatMainScene(itemWidth - 20, itemWidth - 20);
+		creatMainScene(itemWidth - imgdeduct, itemWidth - imgdeduct);
 
 		animate();
 
@@ -159,11 +161,11 @@ export default function TrainingBuilder() {
 
 		{
 			// mimic the sun light
-			const dlight = new THREE.PointLight(0xffffff, 0.4);
-			dlight.position.set(0, 10, 10);
+			const dlight = new THREE.PointLight(0xffffff, 0.8);
+			dlight.position.set(0, 10, 2);
 			scene.current.add(dlight);
 			// env light
-			scene.current.add(new THREE.AmbientLight(0xffffff, 0.6));
+			scene.current.add(new THREE.AmbientLight(0xffffff, 0.2));
 		}
 
 		// drawScene();
@@ -199,7 +201,7 @@ export default function TrainingBuilder() {
 
 		const { top, left } = e.target.getBoundingClientRect();
 
-		setscenePos({ top: top + window.scrollY, left: left });
+		setscenePos({ top: top + window.scrollY - 70, left: left - 164 });
 
 		loadJSON(
 			process.env.PUBLIC_URL + "/data/exercises/" + exercise_key + ".json"
@@ -292,8 +294,8 @@ export default function TrainingBuilder() {
 					position: "absolute",
 					top: scenePos.top + "px",
 					left: scenePos.left + "px",
-					width: itemWidth - 20 + "px",
-					height: itemWidth - 20 + "px",
+					width: itemWidth - imgdeduct + "px",
+					height: itemWidth - imgdeduct + "px",
 				}}
 			/>
 		</div>
