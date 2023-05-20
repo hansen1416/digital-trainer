@@ -235,6 +235,32 @@ export default function DigitalTrainer() {
 			setloadingSilhouette(false);
 		});
 
+		// we can load training list separately
+		// todo, use API for this feature
+		Promise.all([
+			loadJSON(
+				process.env.PUBLIC_URL +
+					"/data/basic-training.json?r=" +
+					process.env.RANDOM_STRING
+			),
+		]).then(([training1]) => {
+			let mytraining = window.localStorage.getItem("mytraining");
+
+			if (mytraining) {
+				mytraining = JSON.parse(mytraining);
+
+				settrainingList([training1, mytraining]);
+			} else {
+				settrainingList([training1]);
+			}
+
+			setloadingTraining(false);
+		});
+
+		return () => {
+			cancelAnimationFrame(animationPointer.current);
+		};
+
 		return () => {
 			cancelAnimationFrame(animationPointer.current);
 		};
