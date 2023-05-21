@@ -678,6 +678,37 @@ export default function DigitalTrainer() {
 		}
 	}
 
+	function doingTraining() {
+		/**
+		 * in the training process
+		 * 1. do count down
+		 * 2. apply animation
+		 */
+		if (getReadyCountDown.current > 0) {
+			getReadyCountDown.current -= 1;
+
+			setcounterNumber(parseInt(getReadyCountDown.current / 60));
+
+			return;
+		}
+
+		if (restCountDown.current > 0) {
+			restCountDown.current -= 1;
+
+			setcounterNumber(parseInt(restCountDown.current / 60));
+
+			return;
+		}
+
+		// hide counter
+		setcounterNumber(-1);
+
+		// play animation at 30fps
+		if (counter.current % Math.round(60 / animationFps) === 0) {
+			applyAnimation();
+		}
+	}
+
 	return (
 		<div className="digital-trainer">
 			<video
