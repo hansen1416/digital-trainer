@@ -154,12 +154,14 @@ export default function DigitalTrainer() {
 		const documentWidth = document.documentElement.clientWidth;
 		const documentHeight = document.documentElement.clientHeight;
 
-		setsubsceneWidth(documentWidth * 0.3);
-		// remember not to use a squared video
-		setsubsceneHeight((documentWidth * 0.3 * 480) / 640);
+		const sizeScale = 0.2;
 
-		subsceneWidthRef.current = documentWidth * 0.3;
-		subsceneHeightRef.current = (documentWidth * 0.3 * 480) / 640;
+		setsubsceneWidth(documentWidth * sizeScale);
+		// remember not to use a squared video
+		setsubsceneHeight((documentWidth * sizeScale * 480) / 640);
+
+		subsceneWidthRef.current = documentWidth * sizeScale;
+		subsceneHeightRef.current = (documentWidth * sizeScale * 480) / 640;
 
 		// scene take entire screen
 		creatMainScene(documentWidth, documentHeight);
@@ -497,7 +499,7 @@ export default function DigitalTrainer() {
 
 		cameraEg.current = new THREE.PerspectiveCamera(90, 1, 0.1, 500);
 
-		cameraEg.current.position.set(0, 0.3, 1.2);
+		cameraEg.current.position.set(0, 0.28, 1.2);
 
 		{
 			// mimic the sun light
