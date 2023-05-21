@@ -211,6 +211,10 @@ export default function DigitalTrainer() {
 			mannequinModel.current = glb.scene.children[0];
 			mannequinModel.current.position.set(0, -1, 0);
 
+			for (let i = 1; i < 10; i++) {
+				mannequinModel.current.children[i].castShadow = true;
+			}
+
 			// store all limbs to `mannequinModel`
 			traverseModel(mannequinModel.current, figureParts.current);
 
@@ -400,22 +404,38 @@ export default function DigitalTrainer() {
 
 		camera.current.position.set(0, 0, 2);
 
+		// add light
 		{
 			// mimic the sun light
-			const dlight = new THREE.PointLight(0xffffff, 0.4);
-			dlight.position.set(0, 10, 10);
+			const dlight = new THREE.SpotLight(0xffffff, 0.7);
+			dlight.position.set(2, 10, 10);
+			dlight.castShadow = true;
+
 			scene.current.add(dlight);
 			// env light
-			scene.current.add(new THREE.AmbientLight(0xffffff, 0.6));
+			scene.current.add(new THREE.AmbientLight(0xffffff, 0.3));
 		}
 
-		// drawScene();
+		// add floor
+		{
+			const geometry = new THREE.BoxGeometry(5, 3, 0.1);
+			const material = new THREE.MeshStandardMaterial({
+				color: 0xaaaaaa,
+			});
+			const floor = new THREE.Mesh(geometry, material);
+			floor.position.set(0, -1.04, 0);
+			floor.rotation.set(-Math.PI / 2, 0, 0);
+			scene.current.add(floor);
+		}
 
 		renderer.current = new THREE.WebGLRenderer({
 			canvas: canvasRef.current,
 			alpha: true,
 			antialias: true,
 		});
+
+		renderer.current.shadowMap.enabled = true;
+		renderer.current.shadowMap.type = THREE.BasicShadowMap;
 
 		renderer.current.toneMappingExposure = 0.5;
 
