@@ -5,6 +5,7 @@ import { cloneDeep } from "lodash";
 import { Pose } from "@mediapipe/pose";
 import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
+import Slider from "@mui/joy/Slider";
 import { createWorkerFactory, useWorker } from "@shopify/react-web-worker";
 
 import "../styles/css/DigitalTrainer.css";
@@ -1056,6 +1057,17 @@ export default function DigitalTrainer() {
 								setposeSyncThreshold(values[1]);
 							}}
 						/> */}
+						<Slider
+							defaultValue={poseSyncThreshold}
+							step={1}
+							// marks
+							min={0}
+							max={100}
+							valueLabelDisplay="auto"
+							onChange={(e, newValue) => {
+								setposeSyncThreshold(newValue);
+							}}
+						/>
 					</div>
 				</div>
 			</div>
