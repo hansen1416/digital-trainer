@@ -320,3 +320,12 @@ export const BlazePoseKeypointsValues = {
 	LEFT_FOOT_INDEX: 31,
 	RIGHT_FOOT_INDEX: 32,
 };
+
+export function isLowerBodyVisible(poseData) {
+	return (
+		poseData[BlazePoseKeypointsValues["LEFT_KNEE"]].visibility > 0.5 &&
+		poseData[BlazePoseKeypointsValues["RIGHT_KNEE"]].visibility > 0.5 &&
+		poseData[BlazePoseKeypointsValues["LEFT_ANKLE"]].visibility > 0.5 &&
+		poseData[BlazePoseKeypointsValues["RIGHT_ANKLE"]].visibility > 0.5
+	);
+}
