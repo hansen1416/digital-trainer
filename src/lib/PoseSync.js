@@ -126,4 +126,46 @@ export default class PoseSync {
 
 		return distances;
 	}
+
+	compareCurrentPose(pose3D, bones, scoreThreshold, spline = false) {
+		// const compare_upper = isUpperBodyVisible(pose3D);
+		const compare_upper = true;
+		const compare_lower = isLowerBodyVisible(pose3D);
+
+		// if (!compare_upper && !compare_lower) {
+		// 	return false;
+		// }
+
+		const d1 = this.keypointsDistances(
+			pose3D,
+			compare_upper,
+			compare_lower
+		);
+
+		const d2 = this.modelBonesDistances(
+			bones,
+			compare_upper,
+			compare_lower
+		);
+
+		/**
+		 * because the bone structure are different
+		 * simply scale them by shoulder distance will result in large error
+		 * pearsn correlation is regardless of the scale
+		 */
+		this.diffScore = pearson_corr(d1, d2) * 100;
+
+		/**
+		 * when `diffScore` >= `scoreThreshold`, correlation is higher than threshold, current frame is a pass
+		 * when current frame is failed, `#bufferStep` accumulate
+		 * when `#bufferStep` exceeds `#bufferStepThreshold` stop animation
+		 */
+		if (this.diffScore >= scoreThreshold) {
+			this.#bufferStep = 0;
+		} else {
+			this.#bufferStep += 1;
+		}
+
+		return this.#bufferStep < this.#bufferStepThreshold;
+	}
 }
