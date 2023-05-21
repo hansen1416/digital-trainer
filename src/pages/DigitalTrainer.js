@@ -356,6 +356,16 @@ export default function DigitalTrainer() {
 		// eslint-disable-next-line
 	}, [selectedTrainingIndx]);
 
+	useEffect(() => {
+		/**
+		 * user tunning the threshold
+		 * it affect how strict user should follow the animation
+		 * pearson correlation * 100
+		 * default 80,
+		 */
+		poseSyncThresholdRef.current = poseSyncThreshold;
+	}, [poseSyncThreshold]);
+
 	function creatMainScene(viewWidth, viewHeight) {
 		/**
 		 * main scene, which plays exercise animation
