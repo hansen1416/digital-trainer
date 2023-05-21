@@ -329,7 +329,3 @@ export function isLowerBodyVisible(poseData) {
 		poseData[BlazePoseKeypointsValues["RIGHT_ANKLE"]].visibility > 0.5
 	);
 }
-
-export function array_average(array) {
-	return array.reduce((a, b) => a + b) / array.length;
-}
