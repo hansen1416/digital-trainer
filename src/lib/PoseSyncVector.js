@@ -211,4 +211,36 @@ function boneJointPos(bones) {
 	return pos;
 }
 
-export default function composeLimbVectors(pose, bones) {}
+/**
+ * compare bone and pose limbs
+ * @param {obj} pose
+ * @param {obj} bones
+ * @returns
+ */
+export default function composeLimbVectors(pose, bones) {
+	const pose_pos = poseJointPos(pose);
+	const bone_pos = boneJointPos(bones);
+
+	const pose_limb = posToLimb(pose_pos);
+	const bone_limb = posToLimb(bone_pos);
+
+	const [chest_matrix, abs_matrix] = boneToPoseMatrix(bone_pos, pose_pos);
+
+	bone_limb.leftArm.applyMatrix4(chest_matrix);
+	bone_limb.leftForeArm.applyMatrix4(chest_matrix);
+	bone_limb.rightArm.applyMatrix4(chest_matrix);
+	bone_limb.rightForeArm.applyMatrix4(chest_matrix);
+
+	bone_limb.leftThigh.applyMatrix4(abs_matrix);
+	bone_limb.leftCalf.applyMatrix4(abs_matrix);
+	bone_limb.rightThigh.applyMatrix4(abs_matrix);
+	bone_limb.rightCalf.applyMatrix4(abs_matrix);
+
+	const res = {};
+
+	for (let name in pose_limb) {
+		res[name] = pose_limb[name].angleTo(bone_limb[name]);
+	}
+
+	return res;
+}
