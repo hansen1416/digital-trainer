@@ -162,4 +162,19 @@ function posToLimb(pos) {
 	};
 }
 
+/**
+ * get joint positions from pose 3d landmark
+ * @param {obj} pose3D
+ * @returns
+ */
+function poseJointPos(pose3D) {
+	const pos = {};
+
+	for (let name in poseJoints) {
+		pos[name] = pose3D[BlazePoseKeypointsValues[poseJoints[name]]];
+	}
+
+	return pos;
+}
+
 export default function composeLimbVectors(pose, bones) {}
