@@ -128,4 +128,18 @@ function boneToPoseMatrix(bones_pos, pose_pos) {
 	return [chest_m, abs_m];
 }
 
+/**
+ * joint position to limb vector
+ * @param {obj} start_joint
+ * @param {obj} end_joint
+ * @returns
+ */
+function limbVector(start_joint, end_joint) {
+	return new THREE.Vector3(
+		end_joint.x - start_joint.x,
+		end_joint.y - start_joint.y,
+		end_joint.z - start_joint.z
+	);
+}
+
 export default function composeLimbVectors(pose, bones) {}
