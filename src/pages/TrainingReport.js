@@ -47,11 +47,7 @@ export default function TrainingReport() {
 					<div className="page-title">
 						<h1>{report.name}</h1>
 					</div>
-					<Box
-						component="nav"
-						aria-label="My site"
-						sx={{ flexGrow: 1 }}
-					>
+					<Box component="nav" sx={{ flexGrow: 1 }}>
 						<List role="menubar" orientation="horizontal">
 							<ListItem role="none">
 								<span>Duration: </span>
