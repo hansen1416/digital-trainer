@@ -261,10 +261,6 @@ export default function DigitalTrainer() {
 			cancelAnimationFrame(animationPointer.current);
 		};
 
-		return () => {
-			cancelAnimationFrame(animationPointer.current);
-		};
-
 		// eslint-disable-next-line
 	}, []);
 
