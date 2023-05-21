@@ -231,3 +231,24 @@ export function applyTransfer(model, animation, indx) {
 		}
 	}
 }
+
+/**
+ * convert radian to a color, gradiently
+ * @param {number} radian
+ * @returns
+ */
+export function radianGradientColor(radian) {
+	if (radian < Math.PI / 6) {
+		return [71, 77, 245];
+	} else if (radian < Math.PI / 3) {
+		return [71, 245, 88];
+	} else if (radian < Math.PI / 2) {
+		return [245, 245, 71];
+	} else if (radian < (Math.PI * 4) / 6) {
+		return [250, 122, 53];
+	} else if (radian < (Math.PI * 5) / 6) {
+		return [245, 71, 204];
+	} else {
+		return [68, 170, 136];
+	}
+}
