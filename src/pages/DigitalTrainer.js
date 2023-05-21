@@ -264,6 +264,23 @@ export default function DigitalTrainer() {
 		// eslint-disable-next-line
 	}, []);
 
+	useEffect(() => {
+		/**
+		 * update subscene size
+		 */
+		if (!subsceneWidth || !subsceneHeight) {
+			return;
+		}
+
+		cameraSub.current.aspect = subsceneWidth / subsceneHeight;
+		cameraSub.current.updateProjectionMatrix();
+		rendererSub.current.setSize(subsceneWidth, subsceneHeight);
+
+		cameraEg.current.aspect = subsceneWidth / subsceneHeight;
+		cameraEg.current.updateProjectionMatrix();
+		rendererEg.current.setSize(subsceneWidth, subsceneHeight);
+	}, [subsceneWidth, subsceneHeight]);
+
 	return (
 		<div className="digital-trainer">
 			<video
