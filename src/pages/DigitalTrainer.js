@@ -1048,15 +1048,6 @@ export default function DigitalTrainer() {
 						<Chip color="primary">{poseSyncThreshold}</Chip>
 					</div>
 					<div className="slider">
-						{/* <RangeSlider
-							className="single-thumb"
-							defaultValue={[0, poseSyncThreshold]}
-							thumbsDisabled={[true, false]}
-							rangeSlideDisabled={true}
-							onInput={(values) => {
-								setposeSyncThreshold(values[1]);
-							}}
-						/> */}
 						<Slider
 							defaultValue={poseSyncThreshold}
 							step={1}

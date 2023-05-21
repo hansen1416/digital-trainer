@@ -53,7 +53,7 @@ function App() {
 							Training Builder
 						</ListItemButton>
 					</ListItem>
-					<ListDivider />
+					{/* <ListDivider />
 					<ListItem role="none">
 						<ListItemButton
 							role="menuitem"
@@ -63,7 +63,7 @@ function App() {
 						>
 							Training Explorer
 						</ListItemButton>
-					</ListItem>
+					</ListItem> */}
 					{/* <ListDivider />
 					<ListItem role="none">
 						<ListItemButton
