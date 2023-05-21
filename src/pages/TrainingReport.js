@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { roundToTwo } from "../lib/ropes";
 import "../styles/css/TrainingReport.css";
-import AspectRatio from "@mui/joy/AspectRatio";
-import Button from "@mui/joy/Button";
 import Grid from "@mui/joy/Grid";
-import Card from "@mui/joy/Card";
-import Typography from "@mui/joy/Typography";
 import Divider from "@mui/joy/Divider";
 import Chip from "@mui/joy/Chip";
 import Box from "@mui/joy/Box";
@@ -49,10 +45,7 @@ export default function TrainingReport() {
 			{report && (
 				<section>
 					<div className="page-title">
-						<h1>Training Report</h1>
-					</div>
-					<div className="name">
-						<h3>{report.name}</h3>
+						<h1>{report.name}</h1>
 					</div>
 					<Box
 						component="nav"
@@ -62,14 +55,9 @@ export default function TrainingReport() {
 						<List role="menubar" orientation="horizontal">
 							<ListItem role="none">
 								<span>Duration: </span>
-								<span>{report.duration}s</span>
+								<span>{roundToTwo(report.duration)}s</span>
 							</ListItem>
 							<ListDivider />
-							<List role="menubar" orientation="horizontal">
-								<ListItem role="none"></ListItem>
-								<ListDivider />
-								<ListItem role="none"></ListItem>
-							</List>
 						</List>
 					</Box>
 
