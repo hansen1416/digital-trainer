@@ -167,3 +167,21 @@ export function traverseModel(model, bodyParts) {
 		traverseModel(child, bodyParts);
 	});
 }
+
+export function calculateLongestTrackFromAnimation(animation_tracks) {
+	/**
+	 * get the number of longest track from the animation
+	 * used by apply animation frame by frame
+	 * @param {Array} animation_tracks
+	 * @returns
+	 */
+	let longest = 0;
+
+	for (const v of animation_tracks) {
+		if (v.type === "quaternion" && v.quaternions.length > longest) {
+			longest = v.quaternions.length;
+		}
+	}
+
+	return longest;
+}
