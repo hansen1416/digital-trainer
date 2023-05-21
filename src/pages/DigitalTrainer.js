@@ -5,7 +5,6 @@ import { cloneDeep } from "lodash";
 import { Pose } from "@mediapipe/pose";
 import Button from "@mui/joy/Button";
 import { createWorkerFactory, useWorker } from "@shopify/react-web-worker";
-import "react-range-slider-input/dist/style.css";
 
 import "../styles/css/DigitalTrainer.css";
 import Silhouette3D from "../components/Silhouette3D";
