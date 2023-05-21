@@ -13,6 +13,17 @@ import Silhouette3D from "../components/Silhouette3D";
 import Counter from "../components/Counter";
 import PoseSync from "../components/PoseSync";
 
+import {
+	loadJSON,
+	invokeCamera,
+	traverseModel,
+	calculateLongestTrackFromAnimation,
+	applyTransfer,
+	radianGradientColor,
+	loadGLTF,
+	jsonToBufferGeometry,
+} from "../components/ropes";
+
 const createWorker = createWorkerFactory(() =>
 	import("./DigitalTrainerWorker")
 );
