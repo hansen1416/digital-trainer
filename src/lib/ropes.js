@@ -354,3 +354,7 @@ export function pearson_corr(x, y) {
 		)
 	);
 }
+
+export function array_average(array) {
+	return array.reduce((a, b) => a + b) / array.length;
+}
