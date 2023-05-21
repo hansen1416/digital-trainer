@@ -1091,4 +1091,85 @@ export default class Silhouette3D {
 
 		return this.body;
 	}
+
+	applyPose(pose3D) {
+		/**
+		 * apply pose to mesh, adjust it's position and scale
+		 */
+		if (!pose3D || !pose3D.length) {
+			return;
+		}
+
+		const rotations = getQuaternions(pose3D);
+
+		rotations.neck =
+			pose3D[BlazePoseKeypointsValues["NOSE"]].visibility > 0.5
+				? new THREE.Quaternion()
+				: false;
+		rotations.head =
+			pose3D[BlazePoseKeypointsValues["NOSE"]].visibility > 0.5
+				? new THREE.Quaternion()
+				: false;
+
+		rotations.leftShoulder = rotations.leftArm
+			? rotations.leftArm.clone()
+			: false;
+		rotations.rightShoulder = rotations.rightArm
+			? rotations.rightArm.clone()
+			: false;
+		rotations.leftElbow = rotations.leftForeArm
+			? rotations.leftForeArm.clone()
+			: false;
+		rotations.rightElbow = rotations.rightForeArm
+			? rotations.rightForeArm.clone()
+			: false;
+		rotations.leftWrist = rotations.leftForeArm
+			? rotations.leftForeArm.clone()
+			: false;
+		rotations.rightWrist = rotations.rightForeArm
+			? rotations.rightForeArm.clone()
+			: false;
+		rotations.leftHand = rotations.leftForeArm
+			? rotations.leftForeArm.clone()
+			: false;
+		rotations.rightHand = rotations.rightForeArm
+			? rotations.rightForeArm.clone()
+			: false;
+		// todo, make thigh, calf follow abdominal if there is no pose data
+		rotations.leftHip = rotations.abdominal
+			? rotations.abdominal.clone()
+			: false;
+		rotations.rightHip = rotations.abdominal
+			? rotations.abdominal.clone()
+			: false;
+		rotations.leftKnee = rotations.leftThigh
+			? rotations.leftThigh.clone()
+			: false;
+		rotations.rightKnee = rotations.rightThigh
+			? rotations.rightThigh.clone()
+			: false;
+		rotations.leftAnkle = rotations.leftCalf
+			? rotations.leftCalf.clone()
+			: false;
+		rotations.rightAnkle = rotations.rightCalf
+			? rotations.rightCalf.clone()
+			: false;
+
+		for (let name of Silhouette3D.limbs) {
+			const pos = this[name].position();
+
+			this[name].group.position.set(pos.x, pos.y, pos.z);
+
+			if (rotations[name]) {
+				// a quaternion calculated, it means the limb is visible
+				// increase opacity
+				this[name].group.rotation.setFromQuaternion(rotations[name]);
+				this[name].mesh.material.opacity = this.visible_opacity;
+			} else {
+				// when rotation is false, the limb in invisible
+				// decrease opacity
+				this[name].mesh.material.opacity = this.invisible_opacity;
+			}
+		}
+	}
 }
