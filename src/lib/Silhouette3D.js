@@ -1172,4 +1172,64 @@ export default class Silhouette3D {
 			}
 		}
 	}
+
+	applyPosition(
+		pose2D,
+		videoWidth,
+		videoHeight,
+		visibleWidth,
+		visibleHeight
+	) {
+		if (!pose2D || !pose2D.length) {
+			return;
+		}
+
+		const left_shoulder =
+			pose2D[BlazePoseKeypointsValues["RIGHT_SHOULDER"]];
+		const right_shoulder =
+			pose2D[BlazePoseKeypointsValues["LEFT_SHOULDER"]];
+		const left_hip = pose2D[BlazePoseKeypointsValues["RIGHT_HIP"]];
+		const right_hip = pose2D[BlazePoseKeypointsValues["LEFT_HIP"]];
+
+		if (
+			left_shoulder.visibility < 0.5 ||
+			right_shoulder.visibility < 0.5 ||
+			left_hip.visibility < 0.5 ||
+			right_hip.visibility < 0.5
+		) {
+			return;
+		}
+
+		// use middle point of hips as model position
+		// because we placed abdominal at (0,0,0)
+		const pixel_pos = {
+			x: (left_hip.x + right_hip.x) / 2,
+			y: (left_hip.y + right_hip.y) / 2,
+		};
+
+		// 1 - x because left/right are swaped
+		let object_x =
+			(1 - pixel_pos.x / videoWidth) * visibleWidth - visibleWidth / 2;
+		// 1 - y because in threejs y axis is twowards top
+		let object_y =
+			(1 - pixel_pos.y / videoHeight) * visibleHeight - visibleHeight / 2;
+
+		if (object_x < -videoWidth / 2) {
+			object_x = -videoWidth / 2;
+		}
+
+		if (object_x > videoWidth / 2) {
+			object_x = videoWidth / 2;
+		}
+
+		if (object_y < -visibleHeight / 2) {
+			object_y = -visibleHeight / 2;
+		}
+
+		if (object_y > visibleHeight / 2) {
+			object_y = visibleHeight / 2;
+		}
+
+		this.body.position.set(object_x, object_y, 0);
+	}
 }
