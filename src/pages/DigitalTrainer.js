@@ -4,6 +4,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { cloneDeep } from "lodash";
 import { Pose } from "@mediapipe/pose";
 import Button from "@mui/joy/Button";
+import Chip from "@mui/joy/Chip";
 import { createWorkerFactory, useWorker } from "@shopify/react-web-worker";
 
 import "../styles/css/DigitalTrainer.css";
@@ -1043,9 +1044,7 @@ export default function DigitalTrainer() {
 						<span>{diffScore}</span>
 					</div>
 					<div className="set-score">
-						{/* <Badge pill bg="primary">
-							{poseSyncThreshold}
-						</Badge> */}
+						<Chip color="primary">{poseSyncThreshold}</Chip>
 					</div>
 					<div className="slider">
 						{/* <RangeSlider
