@@ -28,7 +28,7 @@ export default function TrainingReport() {
 					]);
 				}
 			}
-
+			console.log(res);
 			setreport(res);
 		} catch (e) {
 			console.info(e);

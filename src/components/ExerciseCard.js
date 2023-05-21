@@ -14,7 +14,6 @@ export default function ExerciseCard({
 	onImgClick,
 	addExercise,
 }) {
-	console.log(data);
 	return (
 		<Card
 			sx={{
@@ -41,7 +40,26 @@ export default function ExerciseCard({
 						<span>{data.display_name}</span>
 					</Typography>
 					<Typography level="body2">
-						<span>duration: {roundToTwo(data.duration)}s</span>
+						{data.start_time && data.end_time ? (
+							<span>
+								Duration:{" "}
+								{roundToTwo(
+									(data.end_time - data.start_time) / 1000
+								)}
+								s
+							</span>
+						) : (
+							<span>Duration: {roundToTwo(data.duration)}s</span>
+						)}
+						{data.reps && (
+							<span
+								style={{
+									marginLeft: 10,
+								}}
+							>
+								Reps: {data.reps}
+							</span>
+						)}
 					</Typography>
 				</div>
 				{addExercise && (
