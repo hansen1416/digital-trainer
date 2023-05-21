@@ -801,6 +801,116 @@ export default function DigitalTrainer() {
 		setcurrentExerciseRemainRound(currentRound.current);
 	}
 
+	function applyAnimation() {
+		/**
+		 * current animation not finished
+		 *
+		 * 		pose compared result is good
+		 * 			apply animation
+		 * 			continue increment frame index
+		 * 		else
+		 * 			continue
+		 *
+		 * else
+		 * 		more round to do
+		 * 			reset frame index
+		 * 		else
+		 * 			more exercise to do
+		 * 				calculate longest track
+		 * 				refill round
+		 * 				reset frame index
+		 * 			else
+		 *				flag no longer in exercise
+		 *				reset frame index
+		 *				reset logest track
+		 *				reset round
+		 *
+		 *
+		 * `oseCompareResult.current` is the flag indicate whether animation should be going
+		 * it's the diffscore calculated by `poseSync.current.compareCurrentPose`
+		 *
+		 */
+		if (currentAnimationIndx.current < currentLongestTrack.current) {
+			// the current animation is still in progess
+
+			if (poseCompareResult.current) {
+				if (poseCompareResult.current instanceof Number) {
+					currentAnimationIndx.current = poseCompareResult.current;
+				}
+
+				applyTransfer(
+					figureParts.current,
+					animationJSONs.current[
+						exerciseQueue.current[exerciseQueueIndx.current].name
+					].tracks,
+					currentAnimationIndx.current
+				);
+
+				currentAnimationIndx.current += 1;
+			} else if (poseCompareResult.current === false) {
+				// compare failed, pause animation
+
+				// accumulte unfolloed time by miliseconds
+				statistics.current.exercises[
+					exerciseQueueIndx.current
+				].unfollowed += 1000 / animationFps;
+			}
+		} else {
+			// the current animation finished
+
+			statistics.current.exercises[exerciseQueueIndx.current].end_time =
+				Date.now();
+
+			if (currentRound.current > 1) {
+				// still more round to go
+				currentRound.current -= 1;
+				currentAnimationIndx.current = 0;
+
+				setcurrentExerciseRemainRound(currentRound.current);
+			} else {
+				// all round done, switch to next exercise
+
+				if (
+					exerciseQueueIndx.current <
+					exerciseQueue.current.length - 1
+				) {
+					// there are more animation in the queue
+
+					exerciseQueueIndx.current += 1;
+
+					initializeExercise();
+
+					// rest hook
+					restCountDown.current = resetTime.current;
+				} else {
+					// all animation played
+
+					inExercise.current = false;
+
+					exerciseQueueIndx.current = 0;
+					currentAnimationIndx.current = 0;
+					currentLongestTrack.current = 0;
+					currentRound.current = 0;
+
+					setstopBtnShow(false);
+
+					// training complete hook
+					setshowCompleted(true);
+					setcurrentExerciseName("");
+					setcurrentExerciseRemainRound(0);
+
+					// todo make API call to save user data
+					// console.log(statistics.current);
+
+					window.localStorage.setItem(
+						"statistics",
+						JSON.stringify(statistics.current)
+					);
+				}
+			}
+		}
+	}
+
 	return (
 		<div className="digital-trainer">
 			<video
