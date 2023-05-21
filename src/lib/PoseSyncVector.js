@@ -177,4 +177,38 @@ function poseJointPos(pose3D) {
 	return pos;
 }
 
+/**
+ * get bone position from model
+ * @param {obj} bones
+ * @returns
+ */
+function boneJointPos(bones) {
+	const pos = {};
+
+	for (let name in bonesJoints) {
+		const v = new THREE.Vector3();
+
+		if (
+			bones[bonesJoints[name]] &&
+			bones[bonesJoints[name]].getWorldPosition
+		) {
+			// when using model bones
+			bones[bonesJoints[name]].getWorldPosition(v);
+		} else {
+			try {
+				// when using animation states
+				v.x = bones[bonesJoints[name]][0];
+				v.y = bones[bonesJoints[name]][1];
+				v.z = bones[bonesJoints[name]][2];
+			} catch (e) {
+				console.log(e, bones, name, bonesJoints);
+			}
+		}
+
+		pos[name] = v;
+	}
+
+	return pos;
+}
+
 export default function composeLimbVectors(pose, bones) {}
