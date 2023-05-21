@@ -185,3 +185,49 @@ export function calculateLongestTrackFromAnimation(animation_tracks) {
 
 	return longest;
 }
+
+/**
+ * read data from animations
+ * munnually assign translation and rotation to model
+ * @param {*} model
+ * @param {*} animation
+ * @param {*} indx
+ */
+export function applyTransfer(model, animation, indx) {
+	for (let item of Object.values(animation)) {
+		const item_name = item["name"].split(".")[0];
+
+		if (!model[item_name]) {
+			continue;
+		}
+
+		if (item["type"] === "vector") {
+			if (indx < item["vectors"].length) {
+				model[item_name].position.set(
+					item["vectors"][indx].x,
+					item["vectors"][indx].y,
+					item["vectors"][indx].z
+				);
+			} else {
+				model[item_name].position.set(
+					item["vectors"][item["vectors"].length - 1].x,
+					item["vectors"][item["vectors"].length - 1].y,
+					item["vectors"][item["vectors"].length - 1].z
+				);
+			}
+		}
+
+		if (item["type"] === "quaternion") {
+			let q =
+				indx < item["quaternions"].length
+					? item["quaternions"][indx]
+					: item["quaternions"][item["quaternions"].length - 1];
+
+			if (!(q instanceof Quaternion)) {
+				q = new Quaternion(q._x, q._y, q._z, q._w);
+			}
+
+			model[item_name].setRotationFromQuaternion(q);
+		}
+	}
+}
