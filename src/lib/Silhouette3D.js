@@ -1065,4 +1065,30 @@ export default class Silhouette3D {
 			mesh_position: new THREE.Vector3(0, 0, this.size.foot.z / 2),
 		};
 	}
+
+	init() {
+		/**
+		 * initialize body parts
+		 */
+
+		for (let name of Silhouette3D.limbs) {
+			this[name].group.name = name;
+
+			this.body.add(this[name].group);
+
+			this[name].group.add(this[name].mesh);
+
+			const pos = this[name].position();
+
+			this[name].group.position.set(pos.x, pos.y, pos.z);
+
+			this[name].mesh.position.set(
+				this[name].mesh_position.x,
+				this[name].mesh_position.y,
+				this[name].mesh_position.z
+			);
+		}
+
+		return this.body;
+	}
 }
