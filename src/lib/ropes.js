@@ -223,8 +223,8 @@ export function applyTransfer(model, animation, indx) {
 					? item["quaternions"][indx]
 					: item["quaternions"][item["quaternions"].length - 1];
 
-			if (!(q instanceof Quaternion)) {
-				q = new Quaternion(q._x, q._y, q._z, q._w);
+			if (!(q instanceof THREE.Quaternion)) {
+				q = new THREE.Quaternion(q._x, q._y, q._z, q._w);
 			}
 
 			model[item_name].setRotationFromQuaternion(q);
