@@ -709,6 +709,98 @@ export default function DigitalTrainer() {
 		}
 	}
 
+	function initializeExercise() {
+		/**
+		 * 1. read animation data, read round
+		 * 2. read animation data, set mode position, rotation, calculate longest track
+		 * 3. initialize `PoseSync`, `PoseSyncVector`, used to compare pose pose and animation
+		 */
+		currentAnimationIndx.current = 0;
+		currentRound.current = parseInt(
+			exerciseQueue.current[exerciseQueueIndx.current].reps
+		);
+
+		const animation_data =
+			animationJSONs.current[
+				exerciseQueue.current[exerciseQueueIndx.current].name
+			];
+
+		// initialize statistics for exercise
+		Object.assign(statistics.current.exercises[exerciseQueueIndx.current], {
+			error_angles: {
+				chest: 0,
+				LeftArm: 0,
+				LeftForeArm: 0,
+				RightArm: 0,
+				RightForeArm: 0,
+				abdominal: 0,
+				leftThigh: 0,
+				leftCalf: 0,
+				rightThigh: 0,
+				rightCalf: 0,
+			},
+			unfollowed: 0,
+			start_time: Date.now(),
+			end_time: 0,
+			total_compared_frame: 0,
+		});
+
+		// send animation data to worker, reserved for future analysis
+		// maybe do this sync
+		worker
+			.fetchAnimationData(animation_data.joints_position)
+			.then((msg) => {
+				console.info(msg);
+			});
+
+		mannequinModel.current.position.set(
+			animation_data.position.x,
+			animation_data.position.y,
+			animation_data.position.z
+		);
+
+		mannequinModel.current.rotation.set(
+			animation_data.rotation.x,
+			animation_data.rotation.y,
+			animation_data.rotation.z
+		);
+
+		mixer.current.stopAllAction();
+
+		// prepare the example exercise action
+		const action = mixer.current.clipAction(
+			THREE.AnimationClip.parse(animation_data)
+		);
+
+		action.reset();
+		action.setLoop(THREE.LoopRepeat);
+
+		// keep model at the position where it stops
+		action.clampWhenFinished = true;
+
+		action.enable = true;
+
+		action.play();
+		// prepare the example exercise action
+
+		currentLongestTrack.current = calculateLongestTrackFromAnimation(
+			animation_data.tracks
+		);
+
+		poseSync.current = new PoseSync(animation_data);
+		// poseSyncVector.current = new PoseSyncVector(animation_data);
+
+		applyTransfer(figureParts.current, animation_data.tracks, 0);
+
+		setcurrentExerciseName(
+			animation_data.display_name
+				? animation_data.display_name
+				: animation_data.name
+		);
+
+		setcurrentExerciseRemainRound(currentRound.current);
+	}
+
 	return (
 		<div className="digital-trainer">
 			<video
