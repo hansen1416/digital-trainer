@@ -356,6 +356,57 @@ export default function DigitalTrainer() {
 		// eslint-disable-next-line
 	}, [selectedTrainingIndx]);
 
+	function creatMainScene(viewWidth, viewHeight) {
+		/**
+		 * main scene, which plays exercise animation
+		 * @param {number} viewWidth
+		 * @param {number} viewHeight
+		 */
+		scene.current = new THREE.Scene();
+		// scene.current.background = new THREE.Color(0x022244);
+
+		camera.current = new THREE.PerspectiveCamera(
+			90,
+			viewWidth / viewHeight,
+			0.1,
+			500
+		);
+
+		camera.current.position.set(0, 0, 2);
+
+		{
+			// mimic the sun light
+			const dlight = new THREE.PointLight(0xffffff, 0.4);
+			dlight.position.set(0, 10, 10);
+			scene.current.add(dlight);
+			// env light
+			scene.current.add(new THREE.AmbientLight(0xffffff, 0.6));
+		}
+
+		// drawScene();
+
+		renderer.current = new THREE.WebGLRenderer({
+			canvas: canvasRef.current,
+			alpha: true,
+			antialias: true,
+		});
+
+		renderer.current.toneMappingExposure = 0.5;
+
+		controls.current = new OrbitControls(camera.current, canvasRef.current);
+
+		// controls.current.enablePan = false;
+		// controls.current.minPolarAngle = THREE.MathUtils.degToRad(60);
+		// controls.current.maxPolarAngle = THREE.MathUtils.degToRad(90);
+		controls.current.minDistance = 1;
+		controls.current.maxDistance = 500;
+
+		// this line will cause the control to be lagging
+		// controls.current.enableDamping = true;
+
+		renderer.current.setSize(viewWidth, viewHeight);
+	}
+
 	return (
 		<div className="digital-trainer">
 			<video
