@@ -1232,4 +1232,22 @@ export default class Silhouette3D {
 
 		this.body.position.set(object_x, object_y, 0);
 	}
+
+	applyColor(colors, muscles = []) {
+		/**
+		 * apply color to mesh
+		 */
+
+		for (let name in colors) {
+			if (muscles.indexOf(name) === -1) {
+				continue;
+			}
+
+			this[name].mesh.material.color.setRGB(
+				Number(colors[name][0]) / 255,
+				Number(colors[name][1]) / 255,
+				Number(colors[name][2]) / 255
+			);
+		}
+	}
 }
