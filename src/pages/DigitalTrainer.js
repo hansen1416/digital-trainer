@@ -281,6 +281,81 @@ export default function DigitalTrainer() {
 		rendererEg.current.setSize(subsceneWidth, subsceneHeight);
 	}, [subsceneWidth, subsceneHeight]);
 
+	useEffect(() => {
+		/**
+		 * when select one of the training
+		 * load all of the animation jsons `animationJSONs`
+		 * add then add all names to `exerciseQueue`
+		 * in `animate`, we consume `exerciseQueue`
+		 */
+		if (selectedTrainingIndx >= 0 && trainingList[selectedTrainingIndx]) {
+			const tasks = [];
+			const tmp_queue = [];
+
+			// initialize statistics
+			// clear the exercise array
+			// initialize exercise progress in `initializeExercise`
+			// update exercise progres in `applyAnimation`
+			statistics.current = cloneDeep(trainingList[selectedTrainingIndx]);
+
+			try {
+				// todo, update rest time after each exercise
+				resetTime.current = parseInt(
+					// trainingList[selectedTrainingIndx].rest
+					5
+				);
+			} catch (e) {
+				console.error(e);
+			}
+
+			for (const e of trainingList[selectedTrainingIndx].exercises) {
+				tasks.push(
+					loadJSON(
+						process.env.PUBLIC_URL +
+							"/data/exercises/" +
+							e.name +
+							".json?r=" +
+							process.env.RANDOM_STRING
+					)
+				);
+
+				tmp_queue.push(e);
+			}
+
+			exerciseQueue.current = tmp_queue;
+
+			Promise.all(tasks).then((data) => {
+				/**
+				 * load exercise animation data
+				 * save them to `animationJSONs`
+				 * note: training.exercises[i].name must be equal to data[i].name
+				 */
+
+				for (const v of data) {
+					animationJSONs.current[v.name] = v;
+				}
+
+				exerciseQueueIndx.current = 0;
+
+				initializeExercise();
+
+				if (videoRef.current) {
+					// startCamera(videoRef.current);
+
+					inExercise.current = true;
+
+					// count down loop hook. default 5 seconds
+
+					getReadyCountDown.current = 60;
+
+					setstartBtnShow(false);
+					setstopBtnShow(true);
+				}
+			});
+		}
+		// eslint-disable-next-line
+	}, [selectedTrainingIndx]);
+
 	return (
 		<div className="digital-trainer">
 			<video
