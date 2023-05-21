@@ -101,4 +101,31 @@ function basisFromTorso(left_shoulder, right_shoulder, left_hip, right_hip) {
 	return [chest_basis, abs_basis];
 }
 
+/**
+ * conversion matrix convert vector from bone basis to pose basis
+ * @param {obj} bones_pos
+ * @param {obj} pose_pos
+ * @returns
+ */
+function boneToPoseMatrix(bones_pos, pose_pos) {
+	const [chest_m0, abs_m0] = basisFromTorso(
+		bones_pos["LEFT_SHOULDER"],
+		bones_pos["RIGHT_SHOULDER"],
+		bones_pos["LEFT_HIP"],
+		bones_pos["RIGHT_HIP"]
+	);
+
+	const [chest_m1, abs_m1] = basisFromTorso(
+		pose_pos["LEFT_SHOULDER"],
+		pose_pos["RIGHT_SHOULDER"],
+		pose_pos["LEFT_HIP"],
+		pose_pos["RIGHT_HIP"]
+	);
+
+	const chest_m = chest_m1.multiply(chest_m0.invert());
+	const abs_m = abs_m1.multiply(abs_m0.invert());
+
+	return [chest_m, abs_m];
+}
+
 export default function composeLimbVectors(pose, bones) {}
