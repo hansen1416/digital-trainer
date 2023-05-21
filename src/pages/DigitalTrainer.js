@@ -599,6 +599,85 @@ export default function DigitalTrainer() {
 		}
 	}
 
+	function manipulateSilhouette() {
+		/**
+		 * apply pose/color to silhouette
+		 */
+		if (!keypoints3D.current) {
+			return;
+		}
+
+		// silhouette.current.applyPosition(
+		// 	keypoints2D.current,
+		// 	subsceneWidthRef.current,
+		// 	subsceneHeightRef.current,
+		// 	visibleWidthSub.current,
+		// 	visibleHeightSub.current
+		// );
+
+		silhouette.current.applyPose(keypoints3D.current);
+
+		// pass keypoints3d data to web worker,
+		// so it can analysis the user's kinematics data
+		// decide its amplitude, speed
+		if (
+			workerAvailable.current &&
+			currentAnimationIndx.current < currentLongestTrack.current
+		) {
+			workerAvailable.current = false;
+
+			worker
+				.analyzePose(keypoints3D.current, currentAnimationIndx.current)
+				.then((angleBetweenLimbs) => {
+					const colors = {};
+
+					for (let name in angleBetweenLimbs) {
+						colors[name] = radianGradientColor(
+							angleBetweenLimbs[name]
+						);
+					}
+
+					// record the error rate for statistics
+					if (statistics.current && statistics.current.exercises) {
+						statistics.current.exercises[
+							exerciseQueueIndx.current
+						].total_compared_frame += 1;
+
+						for (let name in angleBetweenLimbs) {
+							statistics.current.exercises[
+								exerciseQueueIndx.current
+							].error_angles[name] += angleBetweenLimbs[name];
+						}
+					}
+
+					// apply color to silhouette
+					// passed key parts limbs to `applyColor`,
+					// only change the color of the key parts
+					if (
+						silhouette.current &&
+						animationJSONs.current &&
+						exerciseQueue.current &&
+						exerciseQueueIndx.current
+					) {
+						silhouette.current.applyColor(
+							colors,
+							animationJSONs.current[
+								exerciseQueue.current[exerciseQueueIndx.current]
+									.name
+							].key_parts || [
+								"LeftArm",
+								"RightArm",
+								"LeftForeArm",
+								"RightForeArm",
+							]
+						);
+					}
+
+					workerAvailable.current = true;
+				});
+		}
+	}
+
 	return (
 		<div className="digital-trainer">
 			<video
