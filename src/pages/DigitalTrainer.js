@@ -506,6 +506,74 @@ export default function DigitalTrainer() {
 		);
 	}
 
+	function animate() {
+		/**
+		 * animation loop, both main scene and sub scene updated
+		 * 1.predict 3d pose
+		 * 2.compare pose with animation
+		 * 3.update 3d silhouette
+		 * 4.play training sequence
+		 */
+		if (
+			videoRef.current &&
+			videoRef.current.readyState >= 2 &&
+			counter.current % 3 === 0
+		) {
+			poseDetector.current.send({ image: videoRef.current });
+		} else {
+			keypoints3D.current = null;
+		}
+
+		if (inExercise.current) {
+			counter.current += 1;
+
+			doingTraining();
+		}
+
+		/** play animation in example sub scene */
+		const delta = clock.getDelta();
+
+		if (mixer.current) mixer.current.update(delta);
+
+		controls.current.update();
+		renderer.current.render(scene.current, camera.current);
+
+		controlsSub.current.update();
+		rendererSub.current.render(sceneSub.current, cameraSub.current);
+
+		controlsEg.current.update();
+		rendererEg.current.render(sceneEg.current, cameraEg.current);
+
+		animationPointer.current = requestAnimationFrame(animate);
+	}
+
+	function capturePoseCallback(result) {
+		/**
+		 * after get pose results
+		 */
+		if (!result || !result.poseLandmarks || !result.poseWorldLandmarks) {
+			// keypoints2D.current = null;
+			keypoints3D.current = null;
+			return;
+		}
+
+		keypoints3D.current = cloneDeep(result.poseWorldLandmarks);
+
+		const width_ratio = 30;
+		const height_ratio = (width_ratio * 480) / 640;
+
+		// multiply x,y by differnt factor
+		for (let v of keypoints3D.current) {
+			v["x"] *= -width_ratio;
+			v["y"] *= -height_ratio;
+			v["z"] *= -width_ratio;
+		}
+
+		comparePose();
+
+		manipulateSilhouette();
+	}
+
 	return (
 		<div className="digital-trainer">
 			<video
