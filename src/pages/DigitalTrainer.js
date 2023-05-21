@@ -7,7 +7,7 @@ import Button from "@mui/joy/Button";
 import { createWorkerFactory, useWorker } from "@shopify/react-web-worker";
 
 import "../styles/css/DigitalTrainer.css";
-import Silhouette3D from "../components/Silhouette3D";
+import Silhouette3D from "../lib/Silhouette3D";
 import Counter from "../components/Counter";
 import PoseSync from "../lib/PoseSync";
 
