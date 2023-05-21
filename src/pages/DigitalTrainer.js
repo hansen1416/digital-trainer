@@ -465,6 +465,47 @@ export default function DigitalTrainer() {
 		);
 	}
 
+	function createEgScene() {
+		/**
+		 * subscene, play the silhouette
+		 * an mapping from pose3d data
+		 *
+		 * assume sqaure canvas, aspect = 1
+		 * visible_x / (tan(fov/2)) = object_z + camera_z
+		 * visible_x = (object_z + camera_z) * tan(fov/2)
+		 *
+		 * so for pose,
+		 * assume x=0.6, the actual x position of pos should be 0.6*visible_x, same for y, since we're using square canvas
+		 * can we apply this to z as well?
+		 */
+
+		sceneEg.current = new THREE.Scene();
+
+		cameraEg.current = new THREE.PerspectiveCamera(90, 1, 0.1, 500);
+
+		cameraEg.current.position.set(0, 0.3, 1.2);
+
+		{
+			// mimic the sun light
+			const dlight = new THREE.PointLight(0xffffff, 0.2);
+			dlight.position.set(0, 10, 10);
+			sceneEg.current.add(dlight);
+			// env light
+			sceneEg.current.add(new THREE.AmbientLight(0xffffff, 0.8));
+		}
+
+		rendererEg.current = new THREE.WebGLRenderer({
+			canvas: canvasRefEg.current,
+			alpha: true,
+			antialias: true,
+		});
+
+		controlsEg.current = new OrbitControls(
+			cameraEg.current,
+			canvasRefEg.current
+		);
+	}
+
 	return (
 		<div className="digital-trainer">
 			<video
