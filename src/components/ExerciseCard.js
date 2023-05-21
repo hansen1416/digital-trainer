@@ -8,17 +8,24 @@ import { roundToTwo } from "../lib/ropes";
 
 import MusclePercentage from "../components/MusclePercentage";
 
-export default function ExerciseCard({ data, width, onImgClick, addExercise }) {
+export default function ExerciseCard({
+	data,
+	styles,
+	onImgClick,
+	addExercise,
+}) {
 	console.log(data);
 	return (
 		<Card
 			sx={{
-				display: "inline-block",
-				width: width - 48,
-				bgcolor: "#2A3E96",
-				boxShadow: "none",
-				marginRight: "16px",
-				marginBottom: "16px",
+				...{
+					display: "inline-block",
+					bgcolor: "#2A3E96",
+					boxShadow: "none",
+					marginRight: "16px",
+					marginBottom: "16px",
+				},
+				...styles,
 			}}
 		>
 			<Box
@@ -37,22 +44,24 @@ export default function ExerciseCard({ data, width, onImgClick, addExercise }) {
 						<span>duration: {roundToTwo(data.duration)}s</span>
 					</Typography>
 				</div>
-				<div>
-					<Button
-						variant="solid"
-						size="sm"
-						color="primary"
-						sx={{
-							ml: "auto",
-							fontWeight: 600,
-						}}
-						onClick={() => {
-							addExercise(data);
-						}}
-					>
-						Add
-					</Button>
-				</div>
+				{addExercise && (
+					<div>
+						<Button
+							variant="solid"
+							size="sm"
+							color="primary"
+							sx={{
+								ml: "auto",
+								fontWeight: 600,
+							}}
+							onClick={() => {
+								addExercise(data);
+							}}
+						>
+							Add
+						</Button>
+					</div>
+				)}
 			</Box>
 			<Box
 				sx={{

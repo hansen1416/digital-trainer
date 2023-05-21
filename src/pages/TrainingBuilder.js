@@ -321,9 +321,9 @@ export default function TrainingBuilder() {
 						<ExerciseCard
 							key={idx}
 							data={exercise}
-							width={itemWidth}
 							onImgClick={viewExercise}
 							addExercise={addExerciseToTraining}
+							styles={{ width: itemWidth - 48 }}
 						/>
 					);
 				})}

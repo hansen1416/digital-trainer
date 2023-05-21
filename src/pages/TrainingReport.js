@@ -29,8 +29,6 @@ export default function TrainingReport() {
 				}
 			}
 
-			console.log(res);
-
 			setreport(res);
 		} catch (e) {
 			console.info(e);
@@ -77,7 +75,10 @@ export default function TrainingReport() {
 											key={idx}
 											data={exercise}
 											onImgClick={() => {}}
-											addExercise={() => {}}
+											styles={{
+												width: "100%",
+												boxSizing: "border-box",
+											}}
 										/>
 									</Grid>
 								);
