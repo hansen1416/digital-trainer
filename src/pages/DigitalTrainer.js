@@ -20,7 +20,7 @@ import {
 	radianGradientColor,
 	loadGLTF,
 	jsonToBufferGeometry,
-} from "../components/ropes";
+} from "../lib/ropes";
 
 const createWorker = createWorkerFactory(() =>
 	import("./DigitalTrainerWorker")
