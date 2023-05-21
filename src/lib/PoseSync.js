@@ -72,4 +72,58 @@ export default class PoseSync {
 
 		return distances;
 	}
+
+	modelBonesDistances(bones, compare_upper = true, compare_lower = false) {
+		const upper = [
+			"LeftArm",
+			"RightArm",
+			"LeftForeArm",
+			"RightForeArm",
+			"LeftHand",
+			"RightHand",
+			"LeftUpLeg",
+			"RightUpLeg",
+		];
+
+		const lower = [
+			"LeftUpLeg",
+			"RightUpLeg",
+			"LeftLeg",
+			"RightLeg",
+			"LeftFoot",
+			"RightFoot",
+		];
+
+		const distances = [];
+
+		if (compare_upper) {
+			for (let i = 0; i < upper.length - 1; i++) {
+				for (let j = i + 1; j < upper.length; j++) {
+					const v1 = new Vector3();
+					const v2 = new Vector3();
+
+					bones[upper[i]].getWorldPosition(v1);
+					bones[upper[j]].getWorldPosition(v2);
+
+					distances.push(distanceBetweenPoints(v1, v2));
+				}
+			}
+		}
+
+		if (compare_lower) {
+			for (let i = 0; i < lower.length - 1; i++) {
+				for (let j = i + 1; j < lower.length; j++) {
+					const v1 = new Vector3();
+					const v2 = new Vector3();
+
+					bones[lower[i]].getWorldPosition(v1);
+					bones[lower[j]].getWorldPosition(v2);
+
+					distances.push(distanceBetweenPoints(v1, v2));
+				}
+			}
+		}
+
+		return distances;
+	}
 }
