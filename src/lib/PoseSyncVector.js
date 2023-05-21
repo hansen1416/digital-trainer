@@ -142,4 +142,24 @@ function limbVector(start_joint, end_joint) {
 	);
 }
 
+/**
+ * all limbs for comparison
+ * @param {obj} pos
+ * @returns
+ */
+function posToLimb(pos) {
+	return {
+		chest: limbVector(pos["RIGHT_SHOULDER"], pos["LEFT_SHOULDER"]),
+		leftArm: limbVector(pos["LEFT_SHOULDER"], pos["LEFT_ELBOW"]),
+		leftForeArm: limbVector(pos["LEFT_ELBOW"], pos["LEFT_WRIST"]),
+		rightArm: limbVector(pos["RIGHT_SHOULDER"], pos["RIGHT_ELBOW"]),
+		rightForeArm: limbVector(pos["RIGHT_ELBOW"], pos["RIGHT_WRIST"]),
+		abdominal: limbVector(pos["RIGHT_HIP"], pos["LEFT_HIP"]),
+		leftThigh: limbVector(pos["LEFT_HIP"], pos["LEFT_KNEE"]),
+		leftCalf: limbVector(pos["LEFT_KNEE"], pos["LEFT_ANKLE"]),
+		rightThigh: limbVector(pos["RIGHT_HIP"], pos["RIGHT_KNEE"]),
+		rightCalf: limbVector(pos["RIGHT_KNEE"], pos["RIGHT_ANKLE"]),
+	};
+}
+
 export default function composeLimbVectors(pose, bones) {}
