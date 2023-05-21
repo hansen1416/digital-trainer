@@ -113,3 +113,124 @@ function torsoRotation(left_shoulder2, right_shoulder2, left_hip2, right_hip2) {
 
 	return [abs_q, chest_q];
 }
+
+function getLimbQuaternion(pose3D, joint_start, joint_end, upVector) {
+	/**
+	 * calculate quaternion for a limb,
+	 * which start from `joint_start` end at `joint_end`
+	 */
+	const start_pos = pose3D[BlazePoseKeypointsValues[joint_start]];
+	const end_pos = pose3D[BlazePoseKeypointsValues[joint_end]];
+
+	if (
+		(start_pos.visibility && start_pos.visibility < 0.5) ||
+		(end_pos.visibility && end_pos.visibility < 0.5)
+	) {
+		return false;
+	}
+
+	return new THREE.Quaternion().setFromUnitVectors(
+		upVector,
+		new THREE.Vector3(
+			end_pos.x - start_pos.x,
+			end_pos.y - start_pos.y,
+			end_pos.z - start_pos.z
+		).normalize()
+	);
+}
+
+function getQuaternions(pose3D) {
+	/**
+	 * get rotation of limbs
+	 */
+
+	const result = {};
+
+	const [abs_q, chest_q] = torsoRotation(
+		pose3D[BlazePoseKeypointsValues["RIGHT_SHOULDER"]],
+		pose3D[BlazePoseKeypointsValues["LEFT_SHOULDER"]],
+		pose3D[BlazePoseKeypointsValues["RIGHT_HIP"]],
+		pose3D[BlazePoseKeypointsValues["LEFT_HIP"]]
+	);
+
+	result["abdominal"] = abs_q;
+	result["chest"] = chest_q;
+
+	// result["head"] = new THREE.Quaternion();
+
+	result["leftArm"] = getLimbQuaternion(
+		pose3D,
+		"RIGHT_SHOULDER",
+		"RIGHT_ELBOW",
+		new THREE.Vector3(1, 0, 0)
+	);
+
+	result["rightArm"] = getLimbQuaternion(
+		pose3D,
+		"LEFT_SHOULDER",
+		"LEFT_ELBOW",
+		new THREE.Vector3(-1, 0, 0)
+	);
+
+	result["leftForeArm"] = getLimbQuaternion(
+		pose3D,
+		"RIGHT_ELBOW",
+		"RIGHT_WRIST",
+		new THREE.Vector3(1, 0, 0)
+	);
+
+	result["rightForeArm"] = getLimbQuaternion(
+		pose3D,
+		"LEFT_ELBOW",
+		"LEFT_WRIST",
+		new THREE.Vector3(-1, 0, 0)
+	);
+
+	// result["leftHand"] = new THREE.Quaternion();
+
+	// result["rightHand"] = new THREE.Quaternion();
+
+	result["leftThigh"] = getLimbQuaternion(
+		pose3D,
+		"RIGHT_HIP",
+		"RIGHT_KNEE",
+		new THREE.Vector3(0, -1, 0)
+	);
+
+	result["rightThigh"] = getLimbQuaternion(
+		pose3D,
+		"LEFT_HIP",
+		"LEFT_KNEE",
+		new THREE.Vector3(0, -1, 0)
+	);
+
+	result["leftCalf"] = getLimbQuaternion(
+		pose3D,
+		"RIGHT_KNEE",
+		"RIGHT_ANKLE",
+		new THREE.Vector3(0, -1, 0)
+	);
+
+	result["rightCalf"] = getLimbQuaternion(
+		pose3D,
+		"LEFT_KNEE",
+		"LEFT_ANKLE",
+		new THREE.Vector3(0, -1, 0)
+	);
+
+	result["leftFoot"] = getLimbQuaternion(
+		pose3D,
+		"RIGHT_HEEL",
+		"RIGHT_FOOT_INDEX",
+		new THREE.Vector3(0, 0, 1)
+	);
+
+	result["rightFoot"] = getLimbQuaternion(
+		pose3D,
+		"LEFT_HEEL",
+		"LEFT_FOOT_INDEX",
+		new THREE.Vector3(0, 0, 1)
+	);
+
+	return result;
+}
