@@ -70,7 +70,7 @@ export default function TrainingReport() {
 							report.exercises &&
 							report.exercises.map((exercise, idx) => {
 								return (
-									<Grid key={idx} xs={4}>
+									<Grid key={idx} xs={3}>
 										<ExerciseCard
 											key={idx}
 											data={exercise}

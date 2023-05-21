@@ -30,7 +30,7 @@ export default function MusclePercentage({ musclesPercent }) {
 							size="sm"
 						>
 							<Typography
-								level="body1"
+								level="body2"
 								sx={{
 									textTransform: "capitalize",
 								}}
