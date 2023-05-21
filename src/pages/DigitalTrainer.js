@@ -9,7 +9,7 @@ import { createWorkerFactory, useWorker } from "@shopify/react-web-worker";
 import "../styles/css/DigitalTrainer.css";
 import Silhouette3D from "../components/Silhouette3D";
 import Counter from "../components/Counter";
-import PoseSync from "../components/PoseSync";
+import PoseSync from "../lib/PoseSync";
 
 import {
 	loadJSON,
