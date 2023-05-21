@@ -5,9 +5,6 @@ import Grid from "@mui/joy/Grid";
 import Divider from "@mui/joy/Divider";
 import Chip from "@mui/joy/Chip";
 import Box from "@mui/joy/Box";
-import List from "@mui/joy/List";
-import ListDivider from "@mui/joy/ListDivider";
-import ListItem from "@mui/joy/ListItem";
 
 import ExerciseCard from "../components/ExerciseCard";
 import MusclePercentage from "../components/MusclePercentage";
@@ -44,18 +41,19 @@ export default function TrainingReport() {
 		<div className="main-content training-report">
 			{report && (
 				<section>
-					<div className="page-title">
+					<div className="page-title" style={{ marginRight: "20px" }}>
 						<h1>{report.name}</h1>
 					</div>
-					<Box component="nav" sx={{ flexGrow: 1 }}>
-						<List role="menubar" orientation="horizontal">
-							<ListItem role="none">
-								<span>Duration: </span>
-								<span>{roundToTwo(report.duration)}s</span>
-							</ListItem>
-							<ListDivider />
-						</List>
+
+					<Box
+						component="nav"
+						sx={{ flexGrow: 1, marginBottom: "30px" }}
+					>
+						<span>Duration: </span>
+						<span>{roundToTwo(report.duration)}s</span>
 					</Box>
+
+					<MusclePercentage musclesPercent={report.muscle_groups} />
 
 					<Divider
 						orientation="horizontal"
