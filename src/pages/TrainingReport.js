@@ -13,6 +13,7 @@ import List from "@mui/joy/List";
 import ListDivider from "@mui/joy/ListDivider";
 import ListItem from "@mui/joy/ListItem";
 
+import ExerciseCard from "../components/ExerciseCard";
 import MusclePercentage from "../components/MusclePercentage";
 
 export default function TrainingReport() {
@@ -37,18 +38,10 @@ export default function TrainingReport() {
 
 			console.log(res);
 
-			// setreport(res);
+			setreport(res);
 		} catch (e) {
 			console.info(e);
 		}
-
-		// todo load report
-		setreport({
-			name: "some name",
-			duration: 30,
-			muscle_groups: null,
-			exercises: [1, 2, 3, 4],
-		});
 	}, []);
 
 	return (
@@ -83,7 +76,7 @@ export default function TrainingReport() {
 					<Divider
 						orientation="horizontal"
 						sx={{
-							"--Divider-childPosition": "20%",
+							// "--Divider-childPosition": "20%",
 							margin: "20px 0",
 						}}
 					>
@@ -95,55 +88,15 @@ export default function TrainingReport() {
 					<Grid container spacing={2} sx={{ flexGrow: 1 }}>
 						{report &&
 							report.exercises &&
-							report.exercises.map((exercise, i) => {
+							report.exercises.map((exercise, idx) => {
 								return (
-									<Grid key={i} xs={4}>
-										<Card
-											sx={{
-												width: "auto",
-												bgcolor: "initial",
-												boxShadow: "none",
-												"--Card-padding": "0px",
-											}}
-										>
-											<Box sx={{ position: "relative" }}>
-												<AspectRatio ratio="4/3">
-													<figure>
-														<img
-															src="https://images.unsplash.com/photo-1515825838458-f2a94b20105a?auto=format&fit=crop&w=300"
-															srcSet="https://images.unsplash.com/photo-1515825838458-f2a94b20105a?auto=format&fit=crop&w=300&dpr=2 2x"
-															loading="lazy"
-															alt="Yosemite by Casey Horner"
-														/>
-													</figure>
-												</AspectRatio>
-											</Box>
-											<Box sx={{ display: "flex" }}>
-												<div>
-													<Typography level="body3">
-														Total price:
-													</Typography>
-													<Typography
-														fontSize="lg"
-														fontWeight="lg"
-													>
-														$2,900
-													</Typography>
-												</div>
-												<Button
-													variant="solid"
-													size="sm"
-													color="primary"
-													aria-label="Explore Bahamas Islands"
-													sx={{
-														ml: "auto",
-														fontWeight: 600,
-													}}
-												>
-													Explore
-												</Button>
-											</Box>
-										</Card>
+									<Grid key={idx} xs={4}>
+										<ExerciseCard
+											key={idx}
+											data={exercise}
+											onImgClick={() => {}}
+											addExercise={() => {}}
+										/>
 									</Grid>
 								);
 							})}

@@ -9,6 +9,7 @@ import { roundToTwo } from "../lib/ropes";
 import MusclePercentage from "../components/MusclePercentage";
 
 export default function ExerciseCard({ data, width, onImgClick, addExercise }) {
+	console.log(data);
 	return (
 		<Card
 			sx={{
