@@ -574,6 +574,31 @@ export default function DigitalTrainer() {
 		manipulateSilhouette();
 	}
 
+	function comparePose() {
+		/**
+		 * in this async function,
+		 * 1. calculate different of distance among different joints
+		 * 2. calculate different of vectors between limbs
+		 * 3. draw pose on the sub-scene
+		 */
+		if (!keypoints3D.current) {
+			return;
+		}
+
+		if (poseSync.current) {
+			// compare the distance curve between animation and pose
+			poseCompareResult.current = poseSync.current.compareCurrentPose(
+				keypoints3D.current,
+				figureParts.current,
+				poseSyncThresholdRef.current
+			);
+
+			// `diffScore` is a pearson correlation
+			// 1 means pose perfectly matched
+			setdiffScore(~~poseSync.current.diffScore);
+		}
+	}
+
 	return (
 		<div className="digital-trainer">
 			<video
