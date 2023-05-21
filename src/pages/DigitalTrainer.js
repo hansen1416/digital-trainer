@@ -417,6 +417,54 @@ export default function DigitalTrainer() {
 		renderer.current.setSize(viewWidth, viewHeight);
 	}
 
+	function createSubScene() {
+		/**
+		 * subscene, play the silhouette
+		 * an mapping from pose3d data
+		 *
+		 * assume sqaure canvas, aspect = 1
+		 * visible_x / (tan(fov/2)) = object_z + camera_z
+		 * visible_x = (object_z + camera_z) * tan(fov/2)
+		 *
+		 * so for pose,
+		 * assume x=0.6, the actual x position of pos should be 0.6*visible_x, same for y, since we're using square canvas
+		 * can we apply this to z as well?
+		 */
+
+		sceneSub.current = new THREE.Scene();
+		// sceneSub.current.background = new THREE.Color(0x22244);
+
+		cameraSub.current = new THREE.PerspectiveCamera(90, 1, 0.1, 500);
+
+		cameraSub.current.position.set(0, 30, 100);
+
+		/**
+		 * visible_height = 2 * tan(camera_fov / 2) * camera_z
+		 * visible_width = visible_height * camera_aspect
+		 */
+
+		const vFOV = THREE.MathUtils.degToRad(cameraSub.current.fov); // convert vertical fov to radians
+
+		visibleHeightSub.current =
+			2 * Math.tan(vFOV / 2) * cameraSub.current.position.z; // visible height
+
+		visibleWidthSub.current =
+			visibleHeightSub.current * cameraSub.current.aspect; // visible width
+
+		sceneSub.current.add(new THREE.AmbientLight(0xffffff, 1));
+
+		rendererSub.current = new THREE.WebGLRenderer({
+			canvas: canvasRefSub.current,
+			alpha: true,
+			antialias: true,
+		});
+
+		controlsSub.current = new OrbitControls(
+			cameraSub.current,
+			canvasRefSub.current
+		);
+	}
+
 	return (
 		<div className="digital-trainer">
 			<video
