@@ -924,6 +924,174 @@ export default function DigitalTrainer() {
 			></video>
 
 			<canvas ref={canvasRef} />
+
+			<div className="info">
+				{/* example exercise sub scene */}
+				<div
+					className="sub-scene"
+					style={{
+						width: subsceneWidth + "px",
+						height: subsceneHeight + "px",
+						marginLeft: (subsceneWidth * -1) / 6 + "px",
+					}}
+				>
+					<canvas ref={canvasRefEg}></canvas>
+				</div>
+
+				{/* captured pose retargetting to a simple model */}
+				<div
+					className="sub-scene"
+					style={{
+						width: subsceneWidth + "px",
+						height: subsceneHeight + "px",
+						marginLeft: (subsceneWidth * -1) / 6 + "px",
+					}}
+				>
+					<canvas ref={canvasRefSub}></canvas>
+				</div>
+
+				{/* on going exercise info */}
+				<div className="exercise-info">
+					{currentExerciseName && (
+						<div>
+							<span>{currentExerciseName}</span>
+							{currentExerciseRemainRound && (
+								<span style={{ marginLeft: "20px" }}>
+									{currentExerciseRemainRound}
+								</span>
+							)}
+						</div>
+					)}
+				</div>
+			</div>
+			<div className="controls">
+				{(startBtnShow || stopBtnShow) && (
+					<div className="buttons">
+						{startBtnShow && (
+							<Button
+								variant="primary"
+								onClick={() => {
+									// if (videoRef.current) {
+									// startCamera(videoRef.current);
+
+									inExercise.current = true;
+
+									// // count down loop hook. default 5 seconds
+
+									// getReadyCountDown.current = 300;
+
+									setstartBtnShow(false);
+									setstopBtnShow(true);
+									// }
+								}}
+							>
+								Continue
+							</Button>
+						)}
+						{stopBtnShow && (
+							<Button
+								variant="secondary"
+								onClick={() => {
+									// if (videoRef.current) {
+									// 	videoRef.current.srcObject = null;
+									// }
+
+									inExercise.current = false;
+
+									setstartBtnShow(true);
+									setstopBtnShow(false);
+								}}
+							>
+								Pause
+							</Button>
+						)}
+					</div>
+				)}
+				<div className="training-list">
+					<i>Choose a training to start</i>
+					<ul>
+						{trainingList &&
+							trainingList.map((item, i) => {
+								return (
+									<li
+										className="clickable"
+										key={i}
+										onClick={() => {
+											setselectedTrainingIndx(i);
+										}}
+									>
+										{item.name}
+									</li>
+								);
+							})}
+					</ul>
+				</div>
+				<div className="diff-score">
+					<div className="current-score">
+						<span>{diffScore}</span>
+					</div>
+					<div className="set-score">
+						<Badge pill bg="primary">
+							{poseSyncThreshold}
+						</Badge>
+					</div>
+					<div className="slider">
+						<RangeSlider
+							className="single-thumb"
+							defaultValue={[0, poseSyncThreshold]}
+							thumbsDisabled={[true, false]}
+							rangeSlideDisabled={true}
+							onInput={(values) => {
+								setposeSyncThreshold(values[1]);
+							}}
+						/>
+					</div>
+				</div>
+			</div>
+
+			{/* countdown, at the center of screen */}
+			{counterNumber >= 0 && <Counter number={counterNumber} />}
+
+			{/* when training finished, at the center of screen */}
+			{showCompleted && (
+				<div className="congratulations">
+					Congratulations, check <a href="/training-report">result</a>
+				</div>
+			)}
+
+			{(loadingCamera ||
+				loadingModel ||
+				loadingCharacter ||
+				loadingSilhouette ||
+				loadingTraining) && (
+				<div className="mask">
+					{loadingCamera && (
+						<div>
+							<span>Preparing Camera....</span>
+						</div>
+					)}
+					{loadingModel && (
+						<div>
+							<span>Preparing Model....</span>
+						</div>
+					)}
+					{loadingCharacter && (
+						<div>
+							<span>Preparing Character....</span>
+						</div>
+					)}
+					{loadingSilhouette && (
+						<div>
+							<span>Preparing Silhouette...</span>.
+						</div>
+					)}
+					{loadingTraining && (
+						<div>
+							<span>Preparing Training Data....</span>
+						</div>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }
