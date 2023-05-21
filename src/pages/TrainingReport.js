@@ -19,6 +19,29 @@ export default function TrainingReport() {
 	const [report, setreport] = useState(null);
 
 	useEffect(() => {
+		let res = window.localStorage.getItem("statistics");
+
+		try {
+			res = JSON.parse(res);
+
+			for (let e of res.exercises) {
+				e.deviation = [];
+
+				for (let name in e.error_angles) {
+					e.deviation.push([
+						name,
+						(e.error_angles[name] /= e.total_compared_frame),
+					]);
+				}
+			}
+
+			console.log(res);
+
+			// setreport(res);
+		} catch (e) {
+			console.info(e);
+		}
+
 		// todo load report
 		setreport({
 			name: "some name",
@@ -74,7 +97,7 @@ export default function TrainingReport() {
 							report.exercises &&
 							report.exercises.map((exercise, i) => {
 								return (
-									<Grid xs={4}>
+									<Grid key={i} xs={4}>
 										<Card
 											sx={{
 												width: "auto",
