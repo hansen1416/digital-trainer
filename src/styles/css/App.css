@@ -53,10 +53,10 @@
 }
 .App .nav {
   position: absolute;
-  top: 0;
+  top: 10px;
   left: 50%;
-  width: 80%;
-  margin: 10px 0 10px -40%;
+  width: 96%;
+  margin: 0 0 0 -48%;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

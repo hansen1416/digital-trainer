@@ -147,8 +147,10 @@ export default function DigitalTrainer() {
 		 * create main scene, pose scene, eg scene
 		 * load pose detector, models, training list
 		 */
-		const documentWidth = document.documentElement.clientWidth;
-		const documentHeight = document.documentElement.clientHeight;
+		document.body.style.overflow = "hidden";
+
+		const documentWidth = window.innerWidth;
+		const documentHeight = window.innerHeight;
 
 		const sizeScale = 0.2;
 
@@ -416,7 +418,7 @@ export default function DigitalTrainer() {
 
 		// add floor
 		{
-			const geometry = new THREE.BoxGeometry(5, 3, 0.1);
+			const geometry = new THREE.BoxGeometry(5, 3.1, 0.1);
 			const material = new THREE.MeshStandardMaterial({
 				color: 0xFFA07A,
 			});
