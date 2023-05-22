@@ -91,10 +91,6 @@ export default function DigitalTrainer() {
 	const subsceneWidthRef = useRef(0);
 	const subsceneHeightRef = useRef(0);
 
-	// the width and height in the 3.js world
-	const visibleWidthSub = useRef(0);
-	const visibleHeightSub = useRef(0);
-
 	// the pose retargetting model instance
 	const silhouette = useRef(null);
 	// ======== sub scene end
@@ -211,9 +207,11 @@ export default function DigitalTrainer() {
 			mannequinModel.current = glb.scene.children[0];
 			mannequinModel.current.position.set(0, -1, 0);
 
-			for (let i = 1; i < 10; i++) {
-				mannequinModel.current.children[i].castShadow = true;
-			}
+			mannequinModel.current.traverse(function (node) {
+				if (node.isMesh) {
+					node.castShadow = true;
+				}
+			});
 
 			// store all limbs to `mannequinModel`
 			traverseModel(mannequinModel.current, figureParts.current);
@@ -425,6 +423,7 @@ export default function DigitalTrainer() {
 			const floor = new THREE.Mesh(geometry, material);
 			floor.position.set(0, -1.04, 0);
 			floor.rotation.set(-Math.PI / 2, 0, 0);
+			floor.receiveShadow = true;
 			scene.current.add(floor);
 		}
 
@@ -473,19 +472,6 @@ export default function DigitalTrainer() {
 		cameraSub.current = new THREE.PerspectiveCamera(90, 1, 0.1, 500);
 
 		cameraSub.current.position.set(0, 30, 100);
-
-		/**
-		 * visible_height = 2 * tan(camera_fov / 2) * camera_z
-		 * visible_width = visible_height * camera_aspect
-		 */
-
-		const vFOV = THREE.MathUtils.degToRad(cameraSub.current.fov); // convert vertical fov to radians
-
-		visibleHeightSub.current =
-			2 * Math.tan(vFOV / 2) * cameraSub.current.position.z; // visible height
-
-		visibleWidthSub.current =
-			visibleHeightSub.current * cameraSub.current.aspect; // visible width
 
 		sceneSub.current.add(new THREE.AmbientLight(0xffffff, 1));
 
@@ -642,14 +628,6 @@ export default function DigitalTrainer() {
 		if (!keypoints3D.current) {
 			return;
 		}
-
-		// silhouette.current.applyPosition(
-		// 	keypoints2D.current,
-		// 	subsceneWidthRef.current,
-		// 	subsceneHeightRef.current,
-		// 	visibleWidthSub.current,
-		// 	visibleHeightSub.current
-		// );
 
 		silhouette.current.applyPose(keypoints3D.current);
 
