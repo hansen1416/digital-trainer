@@ -406,7 +406,7 @@ export default function DigitalTrainer() {
 		{
 			// mimic the sun light
 			const dlight = new THREE.DirectionalLight(0xffffff, 0.7);
-			dlight.position.set(-10, 10, 10);
+			dlight.position.set(-6, 10, 10);
 			dlight.castShadow = true;
 
 			scene.current.add(dlight);
@@ -418,7 +418,7 @@ export default function DigitalTrainer() {
 		{
 			const geometry = new THREE.BoxGeometry(5, 3, 0.1);
 			const material = new THREE.MeshStandardMaterial({
-				color: 0xaaaaaa,
+				color: 0xFFA07A,
 			});
 			const floor = new THREE.Mesh(geometry, material);
 			floor.position.set(0, -1.04, 0);
