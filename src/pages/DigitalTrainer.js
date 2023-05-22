@@ -6,9 +6,9 @@ import { Pose } from "@mediapipe/pose";
 import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
 import Slider from "@mui/joy/Slider";
-import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import ListItemButton from '@mui/joy/ListItemButton';
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemButton from "@mui/joy/ListItemButton";
 import { createWorkerFactory, useWorker } from "@shopify/react-web-worker";
 
 import "../styles/css/DigitalTrainer.css";
@@ -423,7 +423,7 @@ export default function DigitalTrainer() {
 		{
 			const geometry = new THREE.BoxGeometry(5, 3.1, 0.1);
 			const material = new THREE.MeshStandardMaterial({
-				color: 0xFFA07A,
+				color: 0xf8797d,
 			});
 			const floor = new THREE.Mesh(geometry, material);
 			floor.position.set(0, -1.04, 0);
@@ -1033,14 +1033,14 @@ export default function DigitalTrainer() {
 						sx={{
 							maxWidth: 320,
 						}}
-						>
+					>
 						{trainingList &&
 							trainingList.map((item, i) => {
 								return (
 									<ListItem
 										key={i}
 										sx={{
-											padding: "10px 0 0 0"
+											padding: "10px 0 0 0",
 										}}
 									>
 										<Button
