@@ -329,3 +329,11 @@ export function isLowerBodyVisible(poseData) {
 		poseData[BlazePoseKeypointsValues["RIGHT_ANKLE"]].visibility > 0.5
 	);
 }
+
+export async function metamaskLogin() {
+	if (window.ethereum) {
+		return await window.ethereum.request({method: 'eth_requestAccounts'})
+	} else {
+		console.info('metamask not installed')
+	}
+}

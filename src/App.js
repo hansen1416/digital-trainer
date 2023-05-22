@@ -5,7 +5,7 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import ListDivider from "@mui/joy/ListDivider";
-import Avatar from '@mui/joy/Avatar';
+import Avatar from "@mui/joy/Avatar";
 
 // Default theme
 // import '@splidejs/react-splide/css';
@@ -15,6 +15,7 @@ import "@splidejs/react-splide/css/sea-green";
 // // or only core styles
 import "@splidejs/react-splide/css/core";
 
+import { metamaskLogin } from "./lib/ropes";
 // import { ReactComponent as DarkSvg } from "./svg/sun.svg";
 // import { ReactComponent as LightSvg } from "./svg/sun-light.svg";
 
@@ -22,9 +23,8 @@ function App() {
 	const [theme, settheme] = useState("dark");
 
 	useEffect(() => {
-		console.log(window.ethereum)
-	}, [])
-	
+		console.log(window.ethereum);
+	}, []);
 
 	return (
 		<div className={`App ${theme}`}>
@@ -75,17 +75,15 @@ function App() {
 					<ListItem role="none">
 						<ListItemButton
 							onClick={() => {
-								if (window.ethereum) {
-									window.ethereum.request({method: 'eth_requestAccounts'})
-									.then(result => {
-									  console.log(result)
-									})
-								} else {
-									console.info('metamask not installed')
-								}
+								metamaskLogin.then((result) => {
+									console.log(result);
+								});
 							}}
 						>
-							<Avatar alt="MetaMask" src="/svg/MetaMask_Fox.svg" />
+							<Avatar
+								alt="MetaMask"
+								src="/svg/MetaMask_Fox.svg"
+							/>
 						</ListItemButton>
 					</ListItem>
 					{/* <ListDivider />
