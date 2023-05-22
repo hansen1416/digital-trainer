@@ -25,7 +25,7 @@ function App() {
 			<Outlet />
 
 			<div className="nav">
-				<div style={{marginLeft: 10}}>
+				<div>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="40px"
