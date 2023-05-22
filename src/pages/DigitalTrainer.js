@@ -6,6 +6,9 @@ import { Pose } from "@mediapipe/pose";
 import Button from "@mui/joy/Button";
 import Chip from "@mui/joy/Chip";
 import Slider from "@mui/joy/Slider";
+import List from '@mui/joy/List';
+import ListItem from '@mui/joy/ListItem';
+import ListItemButton from '@mui/joy/ListItemButton';
 import { createWorkerFactory, useWorker } from "@shopify/react-web-worker";
 
 import "../styles/css/DigitalTrainer.css";
@@ -985,7 +988,8 @@ export default function DigitalTrainer() {
 					<div className="buttons">
 						{startBtnShow && (
 							<Button
-								variant="primary"
+								color="primary"
+								size="sm"
 								onClick={() => {
 									// if (videoRef.current) {
 									// startCamera(videoRef.current);
@@ -1006,7 +1010,8 @@ export default function DigitalTrainer() {
 						)}
 						{stopBtnShow && (
 							<Button
-								variant="secondary"
+								color="primary"
+								size="sm"
 								onClick={() => {
 									// if (videoRef.current) {
 									// 	videoRef.current.srcObject = null;
@@ -1023,45 +1028,55 @@ export default function DigitalTrainer() {
 						)}
 					</div>
 				)}
-				<div className="training-list">
-					<i>Choose a training to start</i>
-					<ul>
+				<div>
+					<List
+						sx={{
+							maxWidth: 320,
+						}}
+						>
 						{trainingList &&
 							trainingList.map((item, i) => {
 								return (
-									<li
-										className="clickable"
+									<ListItem
 										key={i}
-										onClick={() => {
-											setselectedTrainingIndx(i);
+										sx={{
+											padding: "10px 0 0 0"
 										}}
 									>
-										{item.name}
-									</li>
+										<Button
+											color="danger"
+											onClick={() => {
+												setselectedTrainingIndx(i);
+											}}
+										>
+											{item.name}
+										</Button>
+									</ListItem>
 								);
 							})}
-					</ul>
+					</List>
 				</div>
-				<div className="diff-score">
-					<div className="current-score">
-						<span>{diffScore}</span>
-					</div>
-					<div className="set-score">
-						<Chip color="primary">{poseSyncThreshold}</Chip>
-					</div>
-					<div className="slider">
-						<Slider
-							defaultValue={poseSyncThreshold}
-							step={1}
-							// marks
-							min={0}
-							max={100}
-							valueLabelDisplay="auto"
-							onChange={(e, newValue) => {
-								setposeSyncThreshold(newValue);
-							}}
-						/>
-					</div>
+			</div>
+
+			<div className="diff-score">
+				<div className="current-score">
+					<span>{diffScore}</span>
+				</div>
+				<div className="set-score">
+					<Chip color="primary">{poseSyncThreshold}</Chip>
+				</div>
+				<div className="slider">
+					<Slider
+						defaultValue={poseSyncThreshold}
+						step={1}
+						// marks
+						min={0}
+						max={100}
+						valueLabelDisplay="auto"
+						onChange={(e, newValue) => {
+							setposeSyncThreshold(newValue);
+						}}
+					/>
 				</div>
 			</div>
 

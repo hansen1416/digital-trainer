@@ -10,9 +10,6 @@
   margin: 0;
   padding: 0;
 }
-.App li.clickable {
-  cursor: pointer;
-}
 .App.light h1,
 .App.light h2,
 .App.light h3,

@@ -14,54 +14,36 @@
 
     .controls {
         position: absolute;
-        min-width: 160px;
         right: 16px;
-        bottom: 0;
-        font-size: 20px;
-
-        & > div {
-            margin-bottom: 16px;
-        }
+        bottom: 60px;
 
         .buttons {
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
         }
+    }
 
-        .training-list {
+    .diff-score {
+        position: absolute;
+        right: 16px;
+        bottom: 6px;
+        min-width: 160px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
 
-            i {
-                font-size: 14px;
-            }
-
-            ul{
-                li {
-                    text-decoration: underline;
-                    &:hover {
-                        opacity: 0.8;
-                    }
-                }
-            }
+        .current-score {
+            font-size: 24px;
         }
 
-        .diff-score {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
+        .set-score {
+            margin: 0 10px;
+        }
 
-            .current-score {
-                font-size: 24px;
-            }
-
-            .set-score {
-                margin: 0 10px;
-            }
-
-            .slider{
-                flex-grow: 1,
-            }
+        .slider{
+            flex-grow: 1,
         }
     }
 
