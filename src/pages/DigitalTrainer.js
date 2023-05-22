@@ -405,8 +405,8 @@ export default function DigitalTrainer() {
 		// add light
 		{
 			// mimic the sun light
-			const dlight = new THREE.SpotLight(0xffffff, 0.7);
-			dlight.position.set(2, 10, 10);
+			const dlight = new THREE.DirectionalLight(0xffffff, 0.7);
+			dlight.position.set(-10, 10, 10);
 			dlight.castShadow = true;
 
 			scene.current.add(dlight);
@@ -424,6 +424,7 @@ export default function DigitalTrainer() {
 			floor.position.set(0, -1.04, 0);
 			floor.rotation.set(-Math.PI / 2, 0, 0);
 			floor.receiveShadow = true;
+
 			scene.current.add(floor);
 		}
 
@@ -434,8 +435,7 @@ export default function DigitalTrainer() {
 		});
 
 		renderer.current.shadowMap.enabled = true;
-		renderer.current.shadowMap.type = THREE.BasicShadowMap;
-
+		renderer.current.shadowMap.type = THREE.PCFSoftShadowMap;
 		renderer.current.toneMappingExposure = 0.5;
 
 		controls.current = new OrbitControls(camera.current, canvasRef.current);
