@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import "./styles/css/App.css";
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 import ListItemButton from "@mui/joy/ListItemButton";
 import ListDivider from "@mui/joy/ListDivider";
+import Avatar from '@mui/joy/Avatar';
 
 // Default theme
 // import '@splidejs/react-splide/css';
@@ -19,6 +20,11 @@ import "@splidejs/react-splide/css/core";
 
 function App() {
 	const [theme, settheme] = useState("dark");
+
+	useEffect(() => {
+		console.log(window.ethereum)
+	}, [])
+	
 
 	return (
 		<div className={`App ${theme}`}>
@@ -65,17 +71,23 @@ function App() {
 							Training Builder
 						</ListItemButton>
 					</ListItem>
-					{/* <ListDivider />
+					<ListDivider />
 					<ListItem role="none">
 						<ListItemButton
-							role="menuitem"
-							component="a"
-							href="/training-explore"
-							aria-label="Profile"
+							onClick={() => {
+								if (window.ethereum) {
+									window.ethereum.request({method: 'eth_requestAccounts'})
+									.then(result => {
+									  console.log(result)
+									})
+								} else {
+									console.info('metamask not installed')
+								}
+							}}
 						>
-							Training Explorer
+							<Avatar alt="MetaMask" src="/svg/MetaMask_Fox.svg" />
 						</ListItemButton>
-					</ListItem> */}
+					</ListItem>
 					{/* <ListDivider />
 					<ListItem role="none">
 						<ListItemButton
