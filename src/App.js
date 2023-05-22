@@ -75,7 +75,7 @@ function App() {
 					<ListItem role="none">
 						<ListItemButton
 							onClick={() => {
-								metamaskLogin.then((result) => {
+								metamaskLogin().then((result) => {
 									console.log(result);
 								});
 							}}
