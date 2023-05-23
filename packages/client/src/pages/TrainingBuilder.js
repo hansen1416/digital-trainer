@@ -259,7 +259,7 @@ export default function TrainingBuilder() {
 
 		if (!tmp || !tmp.exercises) {
 			Object.assign(tmp, {
-				name: "training name",
+				name: "My first Training",
 				duration: 0,
 				intensity: 0,
 				calories: 0,
@@ -275,7 +275,7 @@ export default function TrainingBuilder() {
 			});
 		}
 
-		tmp.exercises.push(Object.assign({ reps: 1, rest: 5 }, exercise));
+		tmp.exercises.push(Object.assign({ reps: 1, rest: 1 }, exercise));
 
 		settrainingData(tmp);
 	}

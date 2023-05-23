@@ -1,6 +1,29 @@
 {
   "name": "mud-template-react",
   "private": true,
+<<<<<<< HEAD
+=======
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/public-sans": "^4.5.12",
+    "@latticexyz/store": "^1.42.0",
+    "@mediapipe/pose": "^0.5.1675469404",
+    "@mui/joy": "^5.0.0-alpha.80",
+    "@shopify/react-web-worker": "^5.0.13",
+    "@splidejs/react-splide": "^0.7.12",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.2",
+    "react-scripts": "5.0.1",
+    "three": "^0.152.2",
+    "web-vitals": "^2.1.4"
+  },
+>>>>>>> origin/master
   "scripts": {
     "build": "pnpm recursive run build",
     "dev": "concurrently -n contracts,client -c cyan,magenta \"cd packages/contracts && pnpm run dev\" \"cd packages/client && pnpm run dev\"",
@@ -13,6 +36,7 @@
     "test": "pnpm recursive run test"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@latticexyz/cli": "2.0.0-alpha.1.191+0a055f00",
     "@typescript-eslint/eslint-plugin": "5.46.1",
     "@typescript-eslint/parser": "5.46.1",
@@ -24,5 +48,12 @@
   "engines": {
     "node": "18.x",
     "pnpm": "8.x"
+=======
+    "@latticexyz/cli": "^1.43.0",
+    "@latticexyz/schema-type": "^1.42.0",
+    "concurrently": "^4.1.0",
+    "less": "^3.9.0",
+    "less-watch-compiler": "^1.13.0"
+>>>>>>> origin/master
   }
 }
