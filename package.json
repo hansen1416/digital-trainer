@@ -1,7 +1,8 @@
 {
-  "name": "digital-trainer",
-  "version": "0.1.0",
+  "name": "mud-template-react",
   "private": true,
+<<<<<<< HEAD
+=======
   "dependencies": {
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
@@ -22,37 +23,37 @@
     "three": "^0.152.2",
     "web-vitals": "^2.1.4"
   },
+>>>>>>> origin/master
   "scripts": {
-    "start": "react-scripts start",
-    "dev": "GENERATE_SOURCEMAP=false concurrently --kill-others \"less-watch-compiler src/styles/less src/styles/css --config less-watcher.config.json\" \"react-scripts start\"",
-    "devwin": "concurrently --kill-others \"less-watch-compiler src/styles/less src/styles/css --config less-watcher.config.json\" \"react-scripts start\"",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "build": "pnpm recursive run build",
+    "dev": "concurrently -n contracts,client -c cyan,magenta \"cd packages/contracts && pnpm run dev\" \"cd packages/client && pnpm run dev\"",
+    "dev:client": "pnpm --filter 'client' run dev",
+    "dev:contracts": "pnpm --filter 'contracts' dev",
+    "foundry:up": "curl -L https://foundry.paradigm.xyz | bash && bash $HOME/.foundry/bin/foundryup",
+    "initialize": "pnpm recursive run initialize",
+    "mud:up": "pnpm recursive exec mud set-version -v canary && pnpm install",
+    "prepare": "(forge --version || pnpm foundry:up)",
+    "test": "pnpm recursive run test"
   },
   "devDependencies": {
+<<<<<<< HEAD
+    "@latticexyz/cli": "2.0.0-alpha.1.191+0a055f00",
+    "@typescript-eslint/eslint-plugin": "5.46.1",
+    "@typescript-eslint/parser": "5.46.1",
+    "concurrently": "^8.0.1",
+    "eslint": "8.29.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.9.5"
+  },
+  "engines": {
+    "node": "18.x",
+    "pnpm": "8.x"
+=======
     "@latticexyz/cli": "^1.43.0",
     "@latticexyz/schema-type": "^1.42.0",
     "concurrently": "^4.1.0",
     "less": "^3.9.0",
     "less-watch-compiler": "^1.13.0"
+>>>>>>> origin/master
   }
 }
