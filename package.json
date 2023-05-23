@@ -6,6 +6,7 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@fontsource/public-sans": "^4.5.12",
+    "@latticexyz/store": "^1.42.0",
     "@mediapipe/pose": "^0.5.1675469404",
     "@mui/joy": "^5.0.0-alpha.80",
     "@shopify/react-web-worker": "^5.0.13",
@@ -48,6 +49,8 @@
     ]
   },
   "devDependencies": {
+    "@latticexyz/cli": "^1.43.0",
+    "@latticexyz/schema-type": "^1.42.0",
     "concurrently": "^4.1.0",
     "less": "^3.9.0",
     "less-watch-compiler": "^1.13.0"
