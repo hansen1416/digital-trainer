@@ -272,7 +272,7 @@ export default function DigitalTrainer() {
 			if (mytraining) {
 				mytraining = JSON.parse(mytraining);
 
-				settrainingList([training1, mytraining]);
+				settrainingList([mytraining]);
 			} else {
 				settrainingList([training1]);
 			}
@@ -369,7 +369,7 @@ export default function DigitalTrainer() {
 
 					// count down loop hook. default 5 seconds
 
-					getReadyCountDown.current = 60;
+					getReadyCountDown.current = 180;
 
 					setstartBtnShow(false);
 					setstopBtnShow(true);
