@@ -6,5 +6,11 @@ export default mudConfig({
       keySchema: {},
       schema: "uint32",
     },
+    Report: {
+      keySchema: {},
+      schema: {
+        name: "string",
+      },
+    },
   },
 });
