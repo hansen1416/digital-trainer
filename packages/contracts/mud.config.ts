@@ -2,7 +2,11 @@ import { mudConfig } from "@latticexyz/world/register";
 
 export default mudConfig({
   tables: {
-    Report: {
+    Counter: {
+      keySchema: {},
+      schema: "uint32",
+    },
+    ReportComponent: {
       keySchema: {},
       schema: {
         name: "string",
