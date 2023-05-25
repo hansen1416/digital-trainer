@@ -29,8 +29,6 @@
     "react-scripts": "5.0.1",
     "three": "^0.152.2",
     "web-vitals": "^2.1.4",
-
-
     "@ethersproject/providers": "^5.7.2",
     "@latticexyz/common": "2.0.0-alpha.1.191+0a055f00",
     "@latticexyz/dev-tools": "2.0.0-alpha.1.191+0a055f00",
@@ -43,9 +41,7 @@
     "@latticexyz/world": "2.0.0-alpha.1.191+0a055f00",
     "@wagmi/chains": "^0.2.22",
     "contracts": "workspace:*",
-    "ethers": "^5.7.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "ethers": "^5.7.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.6",
